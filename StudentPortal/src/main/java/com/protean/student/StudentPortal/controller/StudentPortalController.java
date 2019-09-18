@@ -13,12 +13,19 @@ public class StudentPortalController {
 	@Autowired
 	StudentDetailsService studentService;
 	
-	@RequestMapping("/home")
-	public ModelAndView home(){
+	@RequestMapping("/")
+	public String home(){
 		System.out.println(studentService.fetchStudentDetails());
-		ModelAndView mv = new ModelAndView("home.html");
-		mv.addObject("name", studentService.fetchStudentDetails());
-		return mv;
-		//return "home.html";
+		/*
+		 * ModelAndView mv = new ModelAndView("home.html"); mv.addObject("name",
+		 * studentService.fetchStudentDetails()); return mv;
+		 */
+		return "home.html";
 	}
+	
+	@RequestMapping("/login")
+	public String login(){
+		return "index.html";
+	}
+	
 }

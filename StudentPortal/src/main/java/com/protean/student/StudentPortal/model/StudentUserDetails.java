@@ -5,21 +5,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="test_user")
+@Table(name="user_credentials")
 public class StudentUserDetails {
 	
-	private Long id;
+	private Long userid;
 	private String username;
 	private String password;
+	
 	@Id
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getUsername() {
 		return username;
+	}
+	public Long getUserid() {
+		return userid;
+	}
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 	public void setUsername(String username) {
 		this.username = username;
