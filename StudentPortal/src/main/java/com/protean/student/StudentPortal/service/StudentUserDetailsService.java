@@ -23,7 +23,8 @@ public class StudentUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		StudentUserDetails userDetails = studentDao.findByUsername(username);
-		System.out.println(userDetails.getUsername()+" "+userDetails.getPassword());
+		if(userDetails == null)
+			throw new UsernameNotFoundException("User name invalid");
 		return new UserDetailsImpl(userDetails);
 	}
 	

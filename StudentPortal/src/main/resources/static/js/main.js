@@ -1,21 +1,19 @@
 
 (function ($) {
     "use strict";
-    
-    $(".toggle-password").click(function() {
+	
+	$(document).ready(function(){
+      var date_input=$('.date'); 
+      var options={
+        format: 'mm/dd/yyyy',
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
 
-        $(this).toggleClass("zmdi-eye zmdi-eye-off");
-        var input = $($(this).attr("toggle"));
-        if (input.attr("type") == "password") {
-          input.attr("type", "text");
-        } else {
-          input.attr("type", "password");
-        }
-      });
-
-
-    /*==================================================================
-    [ Focus Contact2 ]*/
+     /*==================================================================
+    [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){
             if($(this).val().trim() != "") {
@@ -77,5 +75,8 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+    $('#registerBtn').click(function(){
+    	$("#registerForm").submit();
+    });
 
 })(jQuery);
