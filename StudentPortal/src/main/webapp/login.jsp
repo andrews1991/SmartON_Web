@@ -31,6 +31,7 @@
 <body>
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div style="width:100%;display:none;" class="alertDiv"></div>
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<c:if test="${not empty errorMessage}">
 					  <div style="width:100%;text-align:center" class="alert alert-danger alert-dismissible fade show">

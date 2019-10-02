@@ -10,6 +10,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
 import com.protean.student.StudentPortal.model.StudentUserDetails;
@@ -45,6 +46,7 @@ public class StudentPortalController {
 	 */
 	
 	@RequestMapping("/registerUser")
+	@ResponseBody
 	public String registerUser(RegisterUserDetails registerDetails){
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
@@ -52,7 +54,7 @@ public class StudentPortalController {
 		userDetails.setPassword(password);
 		userDetails.setUser_role("USER");
 		studentService.registerUser(registerDetails, userDetails);
-		return "login.jsp";
+		return "success";
 	}
 	
 	@RequestMapping("/login-error")

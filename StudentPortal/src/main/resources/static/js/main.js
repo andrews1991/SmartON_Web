@@ -11,6 +11,19 @@
       };
       date_input.datepicker(options);
     })
+    
+    $('#registerBtn').click(function() {
+    		
+		});
+	
+	function showAlert(type){
+		if(type == 'success'){
+			$('.alertDiv').html('<div class="alert alert-success" style="text-align:center;"><strong>Success</strong> Data Saved Successfully.</div>');
+		}
+		$('.alertDiv').slideDown();
+		$('.alertDiv').delay(2000).slideUp( "slow", function() {
+		});
+	}
 
      /*==================================================================
     [ Focus input ]*/
@@ -76,7 +89,19 @@
     }
     
     $('#registerBtn').click(function(){
-    	$("#registerForm").submit();
+    	var formData = new FormData($('#registerForm')[0]);
+    	$.ajax({
+    		url: '/registerUser',
+    		type: 'POST',
+    		data: formData,
+    		dataType: 'TEXT',
+    		processData: false,
+    		contentType: false,
+    		success: function(data){
+    			$('.close').click();
+    	    	showAlert('success');
+    		}
+    	});
     });
 
 })(jQuery);
