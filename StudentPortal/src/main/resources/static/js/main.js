@@ -1,21 +1,32 @@
 
 (function ($) {
     "use strict";
+	
+	$(document).ready(function(){
+      var date_input=$('.date'); 
+      var options={
+        format: 'mm/dd/yyyy',
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
     
-    $(".toggle-password").click(function() {
+    $('#registerBtn').click(function() {
+    		
+		});
+	
+	function showAlert(type){
+		if(type == 'success'){
+			$('.alertDiv').html('<div class="alert alert-success" style="text-align:center;"><strong>Success</strong> Data Saved Successfully.</div>');
+		}
+		$('.alertDiv').slideDown();
+		$('.alertDiv').delay(2000).slideUp( "slow", function() {
+		});
+	}
 
-        $(this).toggleClass("zmdi-eye zmdi-eye-off");
-        var input = $($(this).attr("toggle"));
-        if (input.attr("type") == "password") {
-          input.attr("type", "text");
-        } else {
-          input.attr("type", "password");
-        }
-      });
-
-
-    /*==================================================================
-    [ Focus Contact2 ]*/
+     /*==================================================================
+    [ Focus input ]*/
     $('.input100').each(function(){
         $(this).on('blur', function(){
             if($(this).val().trim() != "") {
@@ -77,5 +88,20 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+    $('#registerBtn').click(function(){
+    	var formData = new FormData($('#registerForm')[0]);
+    	$.ajax({
+    		url: '/registerUser',
+    		type: 'POST',
+    		data: formData,
+    		dataType: 'TEXT',
+    		processData: false,
+    		contentType: false,
+    		success: function(data){
+    			$('.close').click();
+    	    	showAlert('success');
+    		}
+    	});
+    });
 
 })(jQuery);

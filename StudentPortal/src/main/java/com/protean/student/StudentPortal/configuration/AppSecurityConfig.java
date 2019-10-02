@@ -57,6 +57,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		        redirectStrategy.sendRedirect(request, response, "/");
 		    }
 		}).permitAll()
+		.failureUrl("/login-error")
 		.and()
 		.logout().invalidateHttpSession(true)
 		.clearAuthentication(true)
@@ -68,7 +69,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 	    web
 	            .ignoring()
-	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/scss/**","/register","/registerUser");
+	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/assets/**","/register","/registerUser");
 	}
 	
 }
