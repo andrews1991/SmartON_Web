@@ -45,13 +45,13 @@
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Type your username">
+						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100" data-symbol="&#xf206;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" placeholder="Type your password">
+						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 					
@@ -114,13 +114,16 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form id="registerForm" method="POST" action="registerUser">
+							<form class="validate-form" id="registerForm" method="POST" action="registerUser">
 								<div class="row">
 									<div class="col-md-2">
 										<span>User Name</span>
 									</div>
+									
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the User Name" value="" name="userName">
+									<div class="rel-input" data-validate = "Username is required">
+										<input type="text" class="form-control validate-input1" placeholder="Username" value="" id="userName" name="userName">
+									</div>
 									</div>
 								</div>
 								<div class="row">
@@ -128,13 +131,13 @@
 										<span>First Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the First Name" value="" name="firstName">
+										<input type="text" class="form-control" placeholder="First Name" value="" name="firstName">
 									</div>
 									<div class="col-md-2">
 										<span>Last Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the Last Name" value="" name="lastName">
+										<input type="text" class="form-control" placeholder="Last Name" value="" name="lastName">
 									</div>
 								</div>
 								<div class="row">
@@ -142,7 +145,7 @@
 										<span>Password</span>
 									</div>
 									<div class="col-md-4">
-										<input type="password" class="form-control" placeholder="Type the Password" value="" name="password">
+										<input type="password" class="form-control" placeholder="Password" value="" name="password">
 									</div>
 									<div class="col-md-2">
 										<span>Confirm Password</span>
@@ -156,13 +159,15 @@
 										<span>E-Mail</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type valid e-mail" value="" name="email">
+									<div class="rel-input" data-validate = "E-mail is required">
+										<input type="text" class="form-control validate-input1" placeholder="E-mail" value="" id="email" name="email">
+									</div>
 									</div>
 									<div class="col-md-2">
 										<span>College Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the College Name" value="" name="college">
+										<input type="text" class="form-control" placeholder="College Name" value="" name="college">
 									</div>
 								</div>
 								<div class="row">
@@ -170,7 +175,7 @@
 										<span>Date-of-Birth</span>
 									</div>
 									<div class="col-md-4">
-										<input class="form-control" class="date" id="dob" name="userDob" placeholder="MM/DD/YYY" type="text"/>
+										<input class="form-control date" id="dob" name="userDob" placeholder="MM/DD/YYY" type="text"/>
 									</div>
 									<div class="col-md-2">
 										<span>Gender</span>
@@ -180,7 +185,7 @@
 											<option value="">Select</option>
 											<option value="male">Male</option>
 											<option value="female">Female</option>
-											<option value="others">Others</option>
+											<option value="others">Rather not to say</option>
 										</select>
 									</div>
 								</div>
@@ -189,13 +194,13 @@
 										<span>City</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the City" value="" name="city">
+										<input type="text" class="form-control" placeholder="City" value="" name="city">
 									</div>
 									<div class="col-md-2">
 										<span>State</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the State" value="" name="state">
+										<input type="text" class="form-control" placeholder="State" value="" name="state">
 									</div>
 								</div>
 								<div class="row">
@@ -203,7 +208,7 @@
 										<span>Mobile Number</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Type the Mobile Number" value="" name="mobileNum">
+										<input type="text" class="form-control" placeholder="Mobile Number" value="" name="mobileNum">
 									</div>
 									<div class="col-md-3">
 										<input type="radio" class="form-control" name="isPremium" value="premium" id="premium" checked/> Premium
@@ -218,7 +223,7 @@
 							<div class="container-login100-form-btn">
 								<div class="wrap-login100-form-btn">
 									<div class="login100-form-bgbtn"></div>
-										<button id="registerBtn" class="login100-form-btn">Register</button>
+										<button id="registerBtn" class="login100-form-btn">TagYourself</button>
 								</div>
 							</div>
 							<div class="container-login100-form-btn">
@@ -237,7 +242,7 @@
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+  <div class="footer-copyright text-center">© 2019 Copyright:
     Protean Soft
   </div>
   <!-- Copyright -->

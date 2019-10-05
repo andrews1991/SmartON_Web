@@ -21,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -69,7 +68,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 	    web
 	            .ignoring()
-	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/assets/**","/register","/registerUser");
+	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/demo/**","/img/**","/scss/**","/checkValidData","/registerUser");
 	}
 	
 }

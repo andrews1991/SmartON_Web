@@ -11,10 +11,6 @@
       };
       date_input.datepicker(options);
     })
-    
-    $('#registerBtn').click(function() {
-    		
-		});
 	
 	function showAlert(type){
 		if(type == 'success'){
@@ -44,7 +40,7 @@
     var input = $('.validate-input .input100');
 
     $('.validate-form').on('submit',function(){
-        var check = true;
+    	var check = true;
 
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
@@ -55,6 +51,19 @@
 
         return check;
     });
+    
+    function checkValidation(){
+    	var check = true;
+    	var input = $('.validate-input1');
+        for(var i=0; i<input.length; i++) {
+            if(validate(input[i]) == false){
+                showValidate(input[i]);
+                check=false;
+            }
+        }
+
+        return check;
+    }
 
 
     $('.validate-form .input100').each(function(){
@@ -88,20 +97,53 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
-    $('#registerBtn').click(function(){
-    	var formData = new FormData($('#registerForm')[0]);
+    function validateRegForm(){
+    	var userName = $('#userName').val();
+    	var email = $('#email').val();
+    	console.log(userName);
     	$.ajax({
-    		url: '/registerUser',
+    		url: '/checkValidData',
     		type: 'POST',
-    		data: formData,
-    		dataType: 'TEXT',
-    		processData: false,
-    		contentType: false,
+    		data: 'userName='+userName+'&email='+email,
+    		dataType: 'JSON',
     		success: function(data){
-    			$('.close').click();
-    	    	showAlert('success');
+    			console.log('ok'+JSON.stringify(data));
+    			if(data.userName == 'valid' && data.email == 'valid'){
+    				var formData = new FormData($('#registerForm')[0]);
+    				$.ajax({
+    		    		url: '/registerUser',
+    		    		type: 'POST',
+    		    		data: formData,
+    		    		dataType: 'TEXT',
+    		    		processData: false,
+    		    		contentType: false,
+    		    		success: function(data){
+    		    			$('.close').click();
+    		    	    	showAlert('success');
+    		    		}
+    		    	});
+    			}else{
+    				if(data.userName == 'invalid'){
+    					$('#userName').parent().attr('data-validate','Username is already taken');
+    					showValidate($('#userName'));
+    				}
+    				if(data.email == 'invalid'){
+    					$('#email').parent().attr('data-validate','E-mail is already taken');
+    					showValidate($('#email'));
+    				}
+    			}
     		}
     	});
+    }
+    
+    $('#registerBtn').click(function(){
+    	hideValidate($('#userName'));
+    	hideValidate($('#email'));
+    	$('#userName').parent().attr('data-validate','Username is required');
+    	$('#email').parent().attr('data-validate','E-mail is required');
+    	if(checkValidation()){
+    		validateRegForm();
+    	}
     });
 
 })(jQuery);

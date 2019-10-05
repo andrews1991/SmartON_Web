@@ -146,6 +146,11 @@ iframe {
   text-transform: uppercase;
 }
 
+.footer-copyright {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
 .bg1 {background-color: #3b5998}
 .bg2 {background-color: #1da1f2}
 .bg3 {background-color: #ea4335}
@@ -369,12 +374,12 @@ iframe {
 }
 
 #modalRegister .login100-form-btn{
-	height: 40px;
+	height: 2rem;
 }
 
 #modalRegister input{
-	width:300px;
-	border-radius:18px;
+	width:100%;
+	border-radius:0.5rem;
 }
 
 #modalRegister input:focus{
@@ -386,9 +391,9 @@ iframe {
 }
 
 #modalRegister select{
-	width:300px;
-	border-radius: 17px;
-	height: 35px;
+	width:100%;
+	border-radius: 0.5rem;
+	height: 2.3rem;
 	color: #adadad;
 }
 
@@ -401,6 +406,10 @@ iframe {
 [ Alert validate ]*/
 
 .validate-input {
+  position: relative;
+}
+
+.rel-input {
   position: relative;
 }
 
