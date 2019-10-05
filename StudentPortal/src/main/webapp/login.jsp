@@ -114,13 +114,16 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-							<form id="registerForm" method="POST" action="registerUser">
+							<form class="validate-form" id="registerForm" method="POST" action="registerUser">
 								<div class="row">
 									<div class="col-md-2">
 										<span>User Name</span>
 									</div>
+									
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="User Name" value="" name="userName">
+									<div class="rel-input" data-validate = "Username is required">
+										<input type="text" class="form-control validate-input1" placeholder="Username" value="" id="userName" name="userName">
+									</div>
 									</div>
 								</div>
 								<div class="row">
@@ -156,7 +159,9 @@
 										<span>E-Mail</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="E-mail" value="" name="email">
+									<div class="rel-input" data-validate = "E-mail is required">
+										<input type="text" class="form-control validate-input1" placeholder="E-mail" value="" id="email" name="email">
+									</div>
 									</div>
 									<div class="col-md-2">
 										<span>College Name</span>
@@ -170,7 +175,7 @@
 										<span>Date-of-Birth</span>
 									</div>
 									<div class="col-md-4">
-										<input class="form-control" class="date" id="dob" name="userDob" placeholder="MM/DD/YYY" type="text"/>
+										<input class="form-control date" id="dob" name="userDob" placeholder="MM/DD/YYY" type="text"/>
 									</div>
 									<div class="col-md-2">
 										<span>Gender</span>
@@ -237,7 +242,7 @@
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+  <div class="footer-copyright text-center">© 2019 Copyright:
     ProteanSoft
   </div>
   <!-- Copyright -->

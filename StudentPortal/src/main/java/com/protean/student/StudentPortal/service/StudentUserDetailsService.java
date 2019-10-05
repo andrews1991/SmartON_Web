@@ -1,5 +1,6 @@
 package com.protean.student.StudentPortal.service;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,23 @@ public class StudentUserDetailsService implements UserDetailsService {
 	public void registerUser(RegisterUserDetails registerDetails,StudentUserDetails userDetails) {
 		studentDao.save(userDetails);
 		registerDao.save(registerDetails);
+	}
+	
+	public JSONObject registerValidityChecker(String userName,String email) {
+		RegisterUserDetails registerDetails = registerDao.findByUserName(userName);
+		RegisterUserDetails registerDetails1 = registerDao.findByEmail(email);
+		JSONObject jsObj = new JSONObject();
+		if(registerDetails != null) {
+			jsObj.put("userName", "invalid");
+		}else {
+			jsObj.put("userName", "valid");
+		}
+		if(registerDetails1 != null) {
+			jsObj.put("email", "invalid");
+		}else {
+			jsObj.put("email", "valid");
+		}
+		return jsObj;
 	}
 
 }

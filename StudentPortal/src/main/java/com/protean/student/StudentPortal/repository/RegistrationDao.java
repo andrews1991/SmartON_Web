@@ -7,5 +7,9 @@ import com.protean.student.StudentPortal.model.RegisterUserDetails;
 
 @Repository
 public interface RegistrationDao extends JpaRepository<RegisterUserDetails, Integer> {
+	
+	public RegisterUserDetails findByUserName(String userName);
+	
+	public RegisterUserDetails findByEmail(String email);
 
 }

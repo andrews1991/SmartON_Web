@@ -3,6 +3,7 @@ package com.protean.student.StudentPortal.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +28,7 @@ public class StudentPortalController {
 	
 	@RequestMapping("/")
 	public String home(){
-		return "home.html";
+		return "dashboard.html";
 	}
 	
 	@RequestMapping("/login")
@@ -55,6 +56,13 @@ public class StudentPortalController {
 		userDetails.setUser_role("USER");
 		studentService.registerUser(registerDetails, userDetails);
 		return "success";
+	}
+	
+	@RequestMapping("/checkValidData")
+	@ResponseBody
+	public String checkValidData(String userName,String email) {
+		JSONObject jsObj = studentService.registerValidityChecker(userName, email);
+		return jsObj.toString();
 	}
 	
 	@RequestMapping("/login-error")
