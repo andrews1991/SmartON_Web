@@ -242,8 +242,8 @@
 <footer class="page-footer font-small blue">
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center">© 2019 Copyright:
-    Protean Soft
+  <div class="footer-copyright text-center">Â© 2019 Copyright:
+    ProteanSoft
   </div>
   <!-- Copyright -->
 
