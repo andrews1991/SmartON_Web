@@ -50,5 +50,10 @@ public class StudentUserDetailsService implements UserDetailsService {
 		}
 		return jsObj;
 	}
+	
+	public RegisterUserDetails getLogonDetails(String userName) {
+		RegisterUserDetails regDetails = registerDao.findByUserName(userName);
+		return regDetails;
+	}
 
 }
