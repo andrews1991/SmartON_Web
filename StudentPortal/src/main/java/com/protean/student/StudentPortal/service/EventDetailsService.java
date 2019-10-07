@@ -11,13 +11,13 @@ public interface EventDetailsService {
 	
 	public EventDetails addEvent(EventDetails student);
 
-	public EventDetails getEventById(Integer id);
+	public EventDetails getEventById(Long id);
 
 	public List<EventDetails> getAllEvents();
 
 	public EventDetails updateEventDetails(EventDetails eventDetails);
 
-	public void delete(Integer id);
+	public void delete(Long id);
 
 
 }

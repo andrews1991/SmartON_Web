@@ -14,6 +14,6 @@ public interface EventsDetailsRepository extends JpaRepository<EventDetails, Lon
 	 * EventDetails findByEventid(Integer eventId);
 	 */
 	
-	EventDetails findByEventid(Integer eventId);
+	EventDetails findByEventid(Long eventId);
 
 }

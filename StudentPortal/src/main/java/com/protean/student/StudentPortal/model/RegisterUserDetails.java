@@ -26,6 +26,7 @@ public class RegisterUserDetails {
 	private String isPremium;
 	private String city;
 	private String state;
+	private String enrolledEventID;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,6 +120,12 @@ public class RegisterUserDetails {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getEnrolledEventID() {
+		return enrolledEventID;
+	}
+	public void setEnrolledEventID(String enrolledEventID) {
+		this.enrolledEventID = enrolledEventID;
 	}
 	
 }

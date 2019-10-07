@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.protean.student.StudentPortal.model.EventDetails;
+import com.protean.student.StudentPortal.model.RegisterUserDetails;
+import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.EventDetailsService;
 
 
@@ -26,6 +28,9 @@ public class EventDetailsController {
 	@Autowired(required=true)
 	EventDetailsService eventDetailsService;
 	
+	@Autowired
+	RegistrationDao registrationDao;
+	
 	 @PostMapping(value="/add",headers="Accept=application/json")
 	//@PostMapping(value="/add")
 	public EventDetails addEvent(@Valid @RequestBody EventDetails eventdetails) {
@@ -33,7 +38,7 @@ public class EventDetailsController {
 	}
 	
 	@GetMapping(value="/get/{id}")
-	public EventDetails getStudentById(@PathVariable Integer id) {
+	public EventDetails getStudentById(@PathVariable Long id) {
 		return eventDetailsService.getEventById(id);
 	}
 	
@@ -47,23 +52,8 @@ public class EventDetailsController {
 		return eventDetailsService.updateEventDetails(eventDetails);
 	}
 
-	/*
-	 * @PostMapping("/fileupload") public String fileUpload(@RequestParam("name")
-	 * String name, @RequestParam("file") MultipartFile file) { try {
-	 * //logger.info("Name= " + name); byte[] image = file.getBytes(); EventDetails
-	 * model = new EventDetails(name, image); int saveImage =
-	 * myService.saveImage(model); if (saveImage == 1) { return "success"; } else {
-	 * return "error"; } } catch (Exception e) { //logger.error("ERROR", e); return
-	 * "error"; } }
-	 * 
-	 * @GetMapping("/getDetail/{id}") public String getDbDetils(@PathVariable String
-	 * id, Model model) { try { logger.info("Id= " + id); MyModel imagesObj =
-	 * myService.getImages(Long.parseLong(id)); model.addAttribute("id",
-	 * imagesObj.getId()); model.addAttribute("name", imagesObj.getName()); byte[]
-	 * encode = java.util.Base64.getEncoder().encode(imagesObj.getImage());
-	 * model.addAttribute("image", new String(encode, "UTF-8")); return
-	 * "imagedetails"; } catch (Exception e) { logger.error("Error", e);
-	 * model.addAttribute("message", "Error in getting image"); return "redirect:/";
-	 * } } }
-	 */
+	@GetMapping(value="/getUser/{userName}")
+	public RegisterUserDetails getStudentById(@PathVariable String userName) {
+		return registrationDao.findByUserName(userName);
+	}
 }
