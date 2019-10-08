@@ -47,7 +47,7 @@ a {
 	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
-	color: #666666;
+	color: #333333;
 	margin: 0px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
@@ -63,6 +63,10 @@ a:hover {
 	text-decoration: none;
   color: #a64bf4;
 }
+
+.lightBG {
+	color: #737373;
+} 
 
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
@@ -382,6 +386,14 @@ iframe {
 	border-radius:0.5rem;
 }
 
+#modalRegister input[type=checkbox] {
+	width:-webkit-fill-available;
+}
+
+#modalRegister input[type=radio] {
+	width:-webkit-fill-available;
+}
+
 #modalRegister input:focus{
 	color: #adadad !important;
 }
@@ -400,6 +412,17 @@ iframe {
 #modalRegister .modal-dialog{
 	 max-width: 75%; 
 	 max-height: 80%;
+	 margin-top: 1rem;
+}
+
+#copyright{
+	text-align: center;
+}
+
+body .limiter {
+  background-image: url('../images/website-startups.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /*------------------------------------------------------------------
