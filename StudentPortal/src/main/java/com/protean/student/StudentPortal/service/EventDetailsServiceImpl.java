@@ -21,7 +21,7 @@ public class EventDetailsServiceImpl implements EventDetailsService {
 	}
 
 	@Override
-	public EventDetails getEventById(Integer eventId) {
+	public EventDetails getEventById(Long eventId) {
 		return eventsDetailsRepository.findByEventid(eventId);
 	}
 
@@ -39,9 +39,9 @@ public class EventDetailsServiceImpl implements EventDetailsService {
 	}
 
 	@Override
-	public void delete(Integer id) {
-		//eventsDetailsRepository.delete(id);
-
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
