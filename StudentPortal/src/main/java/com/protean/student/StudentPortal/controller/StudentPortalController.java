@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.WebAttributes;
@@ -27,8 +28,12 @@ public class StudentPortalController {
 	StudentUserDetailsService studentService;
 	
 	@RequestMapping("/")
-	public String home(){
-		return "dashboard.html";
+	public String home(Authentication authentication,Model model){
+		String userName = authentication.getName();
+		RegisterUserDetails regDetails = studentService.getLogonDetails(userName);
+		model.addAttribute("studentDetails", regDetails);
+		model.addAttribute("userName", userName);
+		return "dashboard.jsp";
 	}
 	
 	@RequestMapping("/login")
