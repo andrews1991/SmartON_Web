@@ -100,7 +100,6 @@
     function validateRegForm(){
     	var userName = $('#userName').val();
     	var email = $('#email').val();
-    	console.log(userName);
     	$.ajax({
     		url: '/checkValidData',
     		type: 'POST',
@@ -145,5 +144,18 @@
     		validateRegForm();
     	}
     });
-
+    
+    $('.clearForm').click(function(){
+    	clearFormData('registerForm');
+    	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
+    		hideValidate($(this));
+    	});
+    });
+    
 })(jQuery);
+
+function clearFormData(selector){
+	$('#'+selector).find('input[type=text],input[type=password],select').each(function(){
+	    $(this).val('');
+	});
+}

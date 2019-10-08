@@ -30,12 +30,12 @@
 </head>
 <body>
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-login100">
 		<div style="width:100%;display:none;" class="alertDiv"></div>
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<c:if test="${not empty errorMessage}">
 					  <div style="width:100%;text-align:center" class="alert alert-danger alert-dismissible fade show">
-						    <strong>Error!</strong> ${errorMessage}.
+						    <span>Username / Password is Invalid.</span>
 						</div>
 				</c:if>
 				<form class="login100-form validate-form" action="login" method="POST">
@@ -97,7 +97,7 @@
 
 					<div class="flex-col-c p-t-30">
 						<span class="txt1 p-b-17">
-							Or Sign Up Using
+							Don't have an Account ?
 						</span>
 
 						<a href="#" data-toggle="modal" data-target="#modalRegister" class="txt2">
@@ -111,7 +111,7 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Sign Up</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close clearForm" data-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
 							<form class="validate-form" id="registerForm" method="POST" action="registerUser">
@@ -131,13 +131,17 @@
 										<span>First Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="First Name" value="" name="firstName">
+									<div class="rel-input" data-validate = "First Name is required">
+										<input type="text" class="form-control validate-input1" placeholder="First Name" value="" name="firstName">
+										</div>
 									</div>
 									<div class="col-md-2">
 										<span>Last Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Last Name" value="" name="lastName">
+									<div class="rel-input" data-validate = "Last Name is required">
+										<input type="text" class="form-control validate-input1" placeholder="Last Name" value="" name="lastName">
+										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -145,13 +149,17 @@
 										<span>Password</span>
 									</div>
 									<div class="col-md-4">
-										<input type="password" class="form-control" placeholder="Password" value="" name="password">
+									<div class="rel-input" data-validate = "Password is required">
+										<input type="password" class="form-control validate-input1" placeholder="Password" value="" name="password">
+										</div>
 									</div>
 									<div class="col-md-2">
 										<span>Confirm Password</span>
 									</div>
 									<div class="col-md-4">
-										<input type="password" class="form-control" placeholder="Re-enter Password" value="">
+									<div class="rel-input" data-validate = "Re-enter Password">
+										<input type="password" class="form-control validate-input1" placeholder="Re-enter Password" value="">
+										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -167,7 +175,9 @@
 										<span>College Name</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="College Name" value="" name="college">
+									<div class="rel-input" data-validate = "College is required">
+										<input type="text" class="form-control validate-input1" placeholder="College Name" value="" name="college">
+										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -194,13 +204,17 @@
 										<span>City</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="City" value="" name="city">
+									<div class="rel-input" data-validate = "City is required">
+										<input type="text" class="form-control validate-input1" placeholder="City" value="" name="city">
+										</div>
 									</div>
 									<div class="col-md-2">
 										<span>State</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="State" value="" name="state">
+									<div class="rel-input" data-validate = "State is required">
+										<input type="text" class="form-control validate-input1" placeholder="State" value="" name="state">
+										</div>
 									</div>
 								</div>
 								<div class="row">
@@ -208,14 +222,21 @@
 										<span>Mobile Number</span>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control" placeholder="Mobile Number" value="" name="mobileNum">
+									<div class="rel-input" data-validate = "Mobile No. is required">
+										<input type="text" class="form-control validate-input1" placeholder="Mobile Number" value="" name="mobileNum">
+										</div>
 									</div>
-									<div class="col-md-3">
-										<input type="radio" class="form-control" name="isPremium" value="premium" id="premium" checked/> Premium
+									<div class="col-md-3" style="margin-top:0.5rem;">
+										<input type="radio" name="isPremium" value="premium" id="premium" checked/>&nbsp;&nbsp; Premium
 									</div>
-									<div class="col-md-3">
-										<input type="radio" class="form-control" name="isPremium" value="guest" id="guest"/> Guest
+									<div class="col-md-3" style="margin-top:0.5rem;">
+										<input type="radio" name="isPremium" value="guest" id="guest"/>&nbsp;&nbsp; Guest
 									</div>
+								</div>
+								<div class="row">
+										<div class="col-md-12">
+											<input type="checkbox" id="isAgreed" value="agreed">&nbsp;&nbsp; <span class="fs-12">I Accept your <a href="#" class="lightBG">Terms & Conditions</a></span>
+										</div>
 								</div>
 							</form>
 						</div>
@@ -229,7 +250,7 @@
 							<div class="container-login100-form-btn">
 								<div class="wrap-login100-form-btn">
 									<div class="login100-form-bgbtn"></div>
-										<button class="login100-form-btn">Clear</button>
+										<button onclick="clearFormData('registerForm');" class="login100-form-btn">Clear</button>
 								</div>
 							</div>
 						</div>
@@ -237,18 +258,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="copyright" id="copyright">
+			&copy;
+			<script>
+				document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+			</script>, Powered by
+			<a href="https://www.proteansoft.in" target="_blank">Proteansoft</a>.
+		</div>
 	</div>
-	<!-- Footer -->
-<footer class="page-footer font-small blue">
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center">© 2019 Copyright:
-    ProteanSoft
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
 
 	<div id="dropDownSelect1"></div>
 	

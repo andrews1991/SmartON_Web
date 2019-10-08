@@ -27,6 +27,7 @@ public class StudentPortalController {
 	@Autowired
 	StudentUserDetailsService studentService;
 	
+	
 	@RequestMapping("/")
 	public String home(Authentication authentication,Model model){
 		String userName = authentication.getName();
