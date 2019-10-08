@@ -1,30 +1,22 @@
 package com.protean.student.StudentPortal.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Component
 @Entity
-@Table(name="user_credentials")
+@Table(name="test_user")
 public class StudentUserDetails {
 	
-	private Long userid;
+	private Long id;
 	private String username;
 	private String password;
-	private String user_role;
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getUserid() {
-		return userid;
+	public Long getId() {
+		return id;
 	}
-	public void setUserid(Long userid) {
-		this.userid = userid;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getUsername() {
 		return username;
@@ -37,12 +29,6 @@ public class StudentUserDetails {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getUser_role() {
-		return user_role;
-	}
-	public void setUser_role(String user_role) {
-		this.user_role = user_role;
 	}
 	
 
