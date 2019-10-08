@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name="Event",schema = "student")
+@Table(name="event_details")
 public class EventDetails {
 
 	@Id
