@@ -1,22 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="ISO-8859-1">
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-  	<link rel="icon" type="image/png" href="/img/favicon.png">
-<title>Dashboard</title>
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  	<!--     Fonts and icons     -->
-  	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  	<!-- CSS Files -->
-  	<link href="/css/bootstrap.min.css" rel="stylesheet" />
-  	<link href="/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
-  	<!-- CSS Just for demo purpose, don't include it in your project -->
-  	<link href="/demo/demo.css" rel="stylesheet" />
+<script type="text/javascript" src="js/angular.min.js"></script>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- CSS Files -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/demo/demo.css" rel="stylesheet" />
 </head>
 <script>
 var app = angular.module('myApp', []);
@@ -38,38 +40,26 @@ app.controller('myCtrl', function($scope, $http) {
 // console.log(event)
   });
 });
-
-
 /* function to decode image*/
-
  
-
-
  function dataURItoBlob(dataURI, type) {
      // convert base64 to raw binary data held in a string
      var byteString = atob(dataURI.split(',')[1]);
-
      // separate out the mime component
      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-
      // write the bytes of the string to an ArrayBuffer
      var ab = new ArrayBuffer(byteString.length);
      var ia = new Uint8Array(ab);
      for (var i = 0; i < byteString.length; i++) {
          ia[i] = byteString.charCodeAt(i);
      }
-
      // write the ArrayBuffer to a blob, and you're done
      var bb = new Blob([ab], { type: type });
      return bb;
  }
-
-
-
-
 </script>
-<body>
-	<input type="hidden" name="userName" ><li>Welcome ${userName} ${studentDetails.firstName} ${studentDetails.lastName}</li>
+<body class="">
+<input type="hidden" name="userName" ><li>Welcome ${userName}</li>
   <div class="wrapper ">
     <div class="sidebar" data-color="blue">
       <!--
@@ -150,7 +140,7 @@ app.controller('myCtrl', function($scope, $http) {
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/logout">
+                <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
@@ -229,7 +219,7 @@ app.controller('myCtrl', function($scope, $http) {
             <script>
               document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>, Powered by
-            <a href="https://www.invisionapp.com" target="_blank">Proteansoft</a>.
+            <a href="https://www.invisionapp.com" target="_blank">Protean Soft</a>.
           </div>
         </div>
       </footer>
@@ -254,9 +244,8 @@ app.controller('myCtrl', function($scope, $http) {
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
-
     });
   </script>
-
 </body>
+
 </html>

@@ -3,15 +3,12 @@ package com.protean.student.StudentPortal.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 @Entity
-@Table(name="event_details")
+@Table(name="Event")
 public class EventDetails {
 
 	@Id
