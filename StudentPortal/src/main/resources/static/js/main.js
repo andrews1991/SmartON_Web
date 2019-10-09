@@ -101,7 +101,7 @@
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
-    		url: '/checkValidData',
+    		url: './checkValidData',
     		type: 'POST',
     		data: 'userName='+userName+'&email='+email,
     		dataType: 'JSON',
@@ -110,7 +110,7 @@
     			if(data.userName == 'valid' && data.email == 'valid'){
     				var formData = new FormData($('#registerForm')[0]);
     				$.ajax({
-    		    		url: '/registerUser',
+    		    		url: './registerUser',
     		    		type: 'POST',
     		    		data: formData,
     		    		dataType: 'TEXT',
