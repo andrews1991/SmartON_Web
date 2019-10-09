@@ -167,7 +167,7 @@
 										<span>E-Mail</span>
 									</div>
 									<div class="col-md-4">
-									<div class="rel-input" data-validate = "E-mail is required">
+									<div class="rel-input" data-validate = "Valid E-mail is required">
 										<input type="text" class="form-control validate-input1" placeholder="E-mail" value="" id="email" name="email">
 									</div>
 									</div>
