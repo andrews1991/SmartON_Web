@@ -4,8 +4,8 @@
 <head>
 <script type="text/javascript" src="js/angular.min.js"></script>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Dashboard
@@ -85,7 +85,7 @@ app.controller('myCtrl', function($scope, $http) {
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
-            <a href="./dashboard.html">
+            <a href="./dashboard.jsp">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
@@ -152,7 +152,7 @@ app.controller('myCtrl', function($scope, $http) {
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/logout">
+                <a class="nav-link" href="./logout">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
