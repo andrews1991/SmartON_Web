@@ -15,10 +15,10 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Files -->
-  <link href="/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/now-ui-dashboard.css?v=1.3.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/demo/demo.css" rel="stylesheet" />
+  <link href="demo/demo.css" rel="stylesheet" />
 </head>
 <script>
 var app = angular.module('myApp', []);
@@ -31,7 +31,7 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.event = response.data;
     angular.forEach($scope.event, function(item){
    	 
-    	var file = dataURItoBlob(item.evenyImage, 'image/png');
+    	//var file = dataURItoBlob(item.evenyImage, 'image/png');
     	//item[evenyImageFile]=file;
     	console.log(item);
      }) 
@@ -59,7 +59,6 @@ app.controller('myCtrl', function($scope, $http) {
  }
 </script>
 <body class="">
-<input type="hidden" name="userName" ><li>Welcome ${userName}</li>
   <div class="wrapper ">
     <div class="sidebar" data-color="blue">
       <!--
@@ -140,7 +139,7 @@ app.controller('myCtrl', function($scope, $http) {
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="/logout">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
@@ -178,14 +177,10 @@ app.controller('myCtrl', function($scope, $http) {
               </div>
               <div class="card-footer">
                 <div class="stats">
-				<div class="card-body">
-					<div class="chart-area">
-						<img src="{{i.evenyImage}}"	height="210px" width="370px" style="padding: 0px 0px 0px 10px" />
-					</div>
-					</div>
-					<h8 class="card-title">{{i.eventType}}</h4></br>
-					<h8 class="card-title">{{i.eventCatogery}}</h4></br>
-					<h8 class="card-title">{{i.eventType}}</h4>
+           
+					<h8 class="card-title"><a href="">{{i.eventName}}</a></h4></br>
+					<h8 class="card-title">{{i.eventOrgName}}</h4></br>
+					<h8 class="card-title">{{i.eventDate| date : "dd-MM-yyyy"}}</h4>
                 </div>
               </div>
             </div>
@@ -219,7 +214,7 @@ app.controller('myCtrl', function($scope, $http) {
             <script>
               document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
             </script>, Powered by
-            <a href="https://www.invisionapp.com" target="_blank">Protean Soft</a>.
+            <a href="https://www.proteansoft.in" target="_blank">Proteansoft</a>.
           </div>
         </div>
       </footer>
