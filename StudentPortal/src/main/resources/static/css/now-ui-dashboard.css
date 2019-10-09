@@ -3581,7 +3581,7 @@ Created using IcoMoon - icomoon.io
   .dropdown-menu .dropdown-item {
     color: inherit; }
   .footer .copyright {
-    float: right;
+    text-align: center;
     padding-right: 15px; } }
 
 @media screen and (max-width: 768px) {
