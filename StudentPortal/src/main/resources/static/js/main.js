@@ -136,10 +136,11 @@
     }
     
     $('#registerBtn').click(function(){
-    	hideValidate($('#userName'));
-    	hideValidate($('#email'));
+    	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
+    		hideValidate($(this));
+    	});
     	$('#userName').parent().attr('data-validate','Username is required');
-    	$('#email').parent().attr('data-validate','E-mail is required');
+    	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
     		validateRegForm();
     	}

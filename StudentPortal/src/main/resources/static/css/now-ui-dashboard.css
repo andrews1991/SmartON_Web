@@ -1,18 +1,25 @@
 /*!
+
  =========================================================
  * Now UI Dashboard - v1.3.0
  =========================================================
+
  * Product Page: https://www.creative-tim.com/product/now-ui-dashboard
  * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+
  * Designed by www.invisionapp.com Coded by www.creative-tim.com
+
  =========================================================
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
  */
 /*     brand Colors              */
 /*      light colors         */
 /*!
 Animate.css - http://daneden.me/animate
 Licensed under the MIT license - http://opensource.org/licenses/MIT
+
 Copyright (c) 2015 Daniel Eden
 */
 .animated {
@@ -2021,9 +2028,11 @@ img {
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }
 
 /* --------------------------------
+
 Nucleo Outline Web Font - nucleoapp.com/
 License - nucleoapp.com/license/
 Created using IcoMoon - icomoon.io
+
 -------------------------------- */
 @font-face {
   font-family: 'Nucleo Outline';
@@ -2771,7 +2780,7 @@ Created using IcoMoon - icomoon.io
     z-index: 3; }
   .sidebar[data-color="blue"]:after,
   .off-canvas-sidebar[data-color="blue"]:after {
-    background: #2CA8FF; }
+    background: #045bd7; }
   .sidebar[data-color="blue"] .nav li.active > a:not([data-toggle="collapse"]),
   .off-canvas-sidebar[data-color="blue"] .nav li.active > a:not([data-toggle="collapse"]) {
     color: #2CA8FF; }
@@ -2858,9 +2867,9 @@ Created using IcoMoon - icomoon.io
   height: 260px;
   padding-top: 30px;
   padding-bottom: 30px;
-  background: #141E30;
+  background: #045bd7;
   /* fallback for old browsers */
-  background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
+  /*background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);*/
   position: relative;
   overflow: hidden; }
   .panel-header .header .title {
