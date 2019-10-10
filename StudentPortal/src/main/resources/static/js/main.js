@@ -101,7 +101,7 @@
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
-    		url: '/checkValidData',
+    		url: './checkValidData',
     		type: 'POST',
     		data: 'userName='+userName+'&email='+email,
     		dataType: 'JSON',
@@ -110,7 +110,7 @@
     			if(data.userName == 'valid' && data.email == 'valid'){
     				var formData = new FormData($('#registerForm')[0]);
     				$.ajax({
-    		    		url: '/registerUser',
+    		    		url: './registerUser',
     		    		type: 'POST',
     		    		data: formData,
     		    		dataType: 'TEXT',
@@ -136,10 +136,11 @@
     }
     
     $('#registerBtn').click(function(){
-    	hideValidate($('#userName'));
-    	hideValidate($('#email'));
+    	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
+    		hideValidate($(this));
+    	});
     	$('#userName').parent().attr('data-validate','Username is required');
-    	$('#email').parent().attr('data-validate','E-mail is required');
+    	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
     		validateRegForm();
     	}
