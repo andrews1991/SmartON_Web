@@ -40,7 +40,7 @@
 				</c:if>
 				<form class="login100-form validate-form" action="login" method="POST">
 					<span class="login100-form-title p-b-49">
-						<img src="images/ProductLogo.jpg" alt="Product Logo" style="max-height:40px;max-width:40px;">&nbsp;&nbsp;Tag #
+						<img src="images/PROTEANSOFT_SHORTLOGO.jpg" alt="Product Logo" style="max-height:40px;max-width:40px;">&nbsp;&nbsp;Tag #
 					</span>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate = "Username is required">
