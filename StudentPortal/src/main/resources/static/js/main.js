@@ -97,7 +97,7 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
-    function validateRegForm(){
+    function validateRegForm(tagme){
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
@@ -107,7 +107,12 @@
     		dataType: 'JSON',
     		success: function(data){
     			console.log('ok'+JSON.stringify(data));
+    			$("#"+tagme).attr('disabled', 'disabled');
     			if(data.userName == 'valid' && data.email == 'valid'){
+    				console.log(" ====================" +
+    						" ====== valid username & password ======" +
+    						"============================== ");
+    				$("#"+tagme).removeAttr('disabled');
     				var formData = new FormData($('#registerForm')[0]);
     				$.ajax({
     		    		url: './registerUser',
@@ -142,7 +147,7 @@
     	$('#userName').parent().attr('data-validate','Username is required');
     	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
-    		validateRegForm();
+    		validateRegForm("registerBtn");
     	}
     });
     
