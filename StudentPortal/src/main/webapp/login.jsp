@@ -26,11 +26,13 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
-
 </head>
 <body>
 	<div class="limiter">
 		<div class="container-login100">
+		<div id="preloader" style="display:none;">
+		  <div id="loader"></div>
+		</div>
 		<div style="width:100%;display:none;" class="alertDiv"></div>
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<c:if test="${not empty errorMessage}">
@@ -56,7 +58,7 @@
 					</div>
 					
 					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
+						<a href="#" data-toggle="modal" data-target="#modalForgot">
 							Forgot password?
 						</a>
 					</div>
@@ -257,6 +259,37 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal fade" id="modalForgot" role="dialog">
+				<div class="modal-dialog" style="min-width:30rem">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Forgot Password ?</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+						<form id="forgotForm" role="form" autocomplete="off" class="form" method="post">
+    
+	                      <div class="row">
+	                      	<div class="col-md-12">
+	                      		<div class="rel-input" data-validate = "Valid E-mail is required">
+	                      			<input type="text" class="form-control" placeholder="E-mail" value="" id="forgotEmail" name="forgotEmail">
+	                      		</div>
+	                      	</div>
+	                      </div>
+	                      <div class="modal-footer">
+		                      <div class="container-login100-form-btn">
+									<div class="wrap-login100-form-btn">
+										<div class="login100-form-bgbtn"></div>
+											<button id="recover-submit" class="login100-form-btn">Get Password</button>
+									</div>
+								</div>
+							</div>
+	                      
+                    </form>
+				</div>
+			</div>			
+		</div>
+		</div>
 		</div>
 		<div class="copyright" id="copyright">
 			&copy;
@@ -265,6 +298,7 @@
 			</script>, Powered by
 			<a href="https://www.proteansoft.in" target="_blank">Proteansoft</a>.
 		</div>
+	
 	</div>
 
 	<div id="dropDownSelect1"></div>

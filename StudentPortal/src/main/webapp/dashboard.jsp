@@ -192,9 +192,9 @@ app.controller('myCtrl', function($scope, $http) {
               <div class="card-footer">
                 <div class="stats">
            
-					<h4 class="card-title"><a href="">{{i.eventName}}</a></h4></br>
-					<h4 class="card-title">{{i.eventOrgName}}</h4></br>
-					<h4 class="card-title">{{i.eventDate| date : "dd-MM-yyyy"}}</h4>
+					<h8 class="card-title"><a href="">{{i.eventName}}</a></h8><br>
+					<h8 class="card-title">{{i.eventOrgName}}</h8><br>
+					<h8 class="card-title">{{i.eventDate| date : "dd-MM-yyyy"}}</h8>
                 </div>
               </div>
             </div>
