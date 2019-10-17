@@ -106,13 +106,7 @@
     		data: 'userName='+userName+'&email='+email,
     		dataType: 'JSON',
     		success: function(data){
-    			console.log('ok'+JSON.stringify(data));
-    			$("#"+tagme).attr('disabled', 'disabled');
     			if(data.userName == 'valid' && data.email == 'valid'){
-    				console.log(" ====================" +
-    						" ====== valid username & password ======" +
-    						"============================== ");
-    				$("#"+tagme).removeAttr('disabled');
     				var formData = new FormData($('#registerForm')[0]);
     				$.ajax({
     		    		url: './registerUser',
@@ -122,6 +116,7 @@
     		    		processData: false,
     		    		contentType: false,
     		    		success: function(data){
+    		    			$('#preloader').hide();
     		    			$('.close').click();
     		    	    	showAlert('success');
     		    		}
@@ -141,6 +136,7 @@
     }
     
     $('#registerBtn').click(function(){
+    	$('#preloader').show();
     	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
     		hideValidate($(this));
     	});
@@ -149,6 +145,7 @@
     	if(checkValidation()){
     		validateRegForm("registerBtn");
     	}
+    	$('#preloader').hide();
     });
     
     $('.clearForm').click(function(){
@@ -156,6 +153,25 @@
     	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
     		hideValidate($(this));
     	});
+    });
+    
+    $('#recover-submit').click(function(){
+    	if(validate($('#forgotEmail')) == false){
+            showValidate(input[i]);
+            return false;
+        }else{
+        	var email = $('#forgotEmail').val();
+        	$.ajax({
+        		url: './forgotPassword',
+	    		type: 'POST',
+	    		data: 'forgotEmail='+email,
+	    		dataType: 'JSON',
+	    		success: function(data){
+	    			alert('ok')
+	    		}
+        	});
+        }
+    	
     });
     
 })(jQuery);

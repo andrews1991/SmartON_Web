@@ -55,5 +55,10 @@ public class StudentUserDetailsService implements UserDetailsService {
 		RegisterUserDetails regDetails = registerDao.findByUserName(userName);
 		return regDetails;
 	}
+	
+	public RegisterUserDetails forgotPassword(String email) {
+		RegisterUserDetails registerDetails = registerDao.findByEmail(email);
+		return registerDetails;
+	}
 
 }
