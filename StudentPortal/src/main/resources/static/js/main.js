@@ -97,7 +97,7 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
-    function validateRegForm(){
+    function validateRegForm(tagme){
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
@@ -143,7 +143,7 @@
     	$('#userName').parent().attr('data-validate','Username is required');
     	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
-    		validateRegForm();
+    		validateRegForm("registerBtn");
     	}
     	$('#preloader').hide();
     });
