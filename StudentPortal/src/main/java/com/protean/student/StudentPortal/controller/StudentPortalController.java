@@ -16,15 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
-import com.protean.student.StudentPortal.model.StudentUserDetails;
 import com.protean.student.StudentPortal.service.MailSenderService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 
 @Controller
 public class StudentPortalController {
 	
-	@Autowired
-	StudentUserDetails userDetails;
 
 	@Autowired
 	StudentUserDetailsService studentService;
@@ -62,10 +59,7 @@ public class StudentPortalController {
 	public String registerUser(RegisterUserDetails registerDetails){
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
-		userDetails.setUsername(registerDetails.getUserName());
-		userDetails.setPassword(password);
-		userDetails.setUser_role("USER");
-		studentService.registerUser(registerDetails, userDetails);
+		studentService.registerUser( registerDetails);
 		return "success";
 	}
 	

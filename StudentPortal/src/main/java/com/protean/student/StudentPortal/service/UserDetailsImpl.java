@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.protean.student.StudentPortal.model.StudentUserDetails;
+import com.protean.student.StudentPortal.model.RegisterUserDetails;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -16,10 +16,12 @@ public class UserDetailsImpl implements UserDetails {
 	 */
 	private static final long serialVersionUID = 7162122368625153556L;
 	
-	private StudentUserDetails userDetails;
+	//private StudentUserDetails userDetails;
+	private RegisterUserDetails userDetails;
+	
 	
 
-	public UserDetailsImpl(StudentUserDetails userDetails) {
+	public UserDetailsImpl(RegisterUserDetails userDetails) {
 		super();
 		this.userDetails = userDetails;
 	}
@@ -38,7 +40,7 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userDetails.getUsername();
+		return userDetails.getUserName();
 	}
 
 	@Override

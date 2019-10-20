@@ -2,6 +2,7 @@ package com.protean.student.StudentPortal.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ public class EventDetails {
 
 	@Id
 	@GeneratedValue
-	//@Column(name = "eventid")
+	@Column(name = "eventid",unique = true)
 	private Long eventid;
 	
 	public Long getEventid() {
