@@ -29,6 +29,7 @@ public class RegisterUserDetails {
 	private String state;
 	private String profileID;
 	private String referalCode;
+	private Long rewardPoints;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,5 +138,12 @@ public class RegisterUserDetails {
 	}
 	public void setReferalCode(String referalCode) {
 		this.referalCode = referalCode;
+	}
+	@Column(name="rewardPoints",columnDefinition = "default 0") 
+	public Long getRewardPoints() {
+		return rewardPoints;
+	}
+	public void setRewardPoints(Long rewardPoints) {
+		this.rewardPoints = rewardPoints;
 	}
 }

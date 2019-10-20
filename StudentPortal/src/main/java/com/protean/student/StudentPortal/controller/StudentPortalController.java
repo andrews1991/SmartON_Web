@@ -78,7 +78,7 @@ public class StudentPortalController {
 		String isValid = "valid";
 		if(regObj != null) {
 			//send mail
-			mailSender.sendEmail(email);
+			//mailSender.sendEmail(email);
 		}else {
 			isValid = "invalid";
 		}

@@ -203,11 +203,11 @@
 								</div>
 								<div class="row">
 									<div class="col-md-2">
-										<span>City</span>
+										<span>Preferred City</span>
 									</div>
 									<div class="col-md-4">
 									<div class="rel-input" data-validate = "City is required">
-										<input type="text" class="form-control validate-input1" placeholder="City" value="" name="city">
+										<input type="text" class="form-control validate-input1" placeholder="City" value="Chennai" name="city">
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -215,7 +215,7 @@
 									</div>
 									<div class="col-md-4">
 									<div class="rel-input" data-validate = "State is required">
-										<input type="text" class="form-control validate-input1" placeholder="State" value="" name="state">
+										<input type="text" class="form-control validate-input1" placeholder="State" value="Tamilnadu" name="state">
 										</div>
 									</div>
 								</div>
@@ -234,6 +234,14 @@
 									<div class="col-md-3" style="margin-top:0.5rem;">
 										<input type="radio" name="isPremium" value="guest" id="guest"/>&nbsp;&nbsp; Guest
 									</div>
+								</div>
+								<div class="row">
+										<div class="col-md-2">
+											<span>Referal Code</span>
+										</div>
+										<div class="col-md-10">
+											<input type='text' maxlength='11' id='referal-code' class="form-control">
+										</div>
 								</div>
 								<div class="row">
 										<div class="col-md-12">
