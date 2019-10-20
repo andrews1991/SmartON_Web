@@ -10,6 +10,27 @@
         autoclose: true,
       };
       date_input.datepicker(options);
+	  $("#referal-code").focusout(function(){
+			var referalCode = $("#referal-code").val();
+			if( referalCode != null && referalCode != "" ){
+				var referalFlag = true;
+				var cityCode = referalCode.substring(0,3).match(/^[a-zA-Z]*$/)[0];
+				var initial = referalCode.substring(9,11).match(/^[a-zA-Z]*$/)[0];
+				var dob =  referalCode.substring(3,9).match(/^[0-9]*$/)[0];
+				if( cityCode == null || cityCode.length != 3 ){
+					referalFlag = false;
+				}
+				if( initial == null || initial.length != 2 ){
+					referalFlag = false;
+				}
+				if( dob == null || dob.length != 6 ){
+					referalFlag = false;
+				}
+				if( !referalFlag ){
+					alert("Please enter a valid referal code");
+				}
+			}
+		});
     })
 	
 	function showAlert(type){
@@ -121,6 +142,8 @@
     		    	    	showAlert('success');
     		    		}
     		    	});
+    				
+    				// $http.get("http://localhost:8080/sendMail/regthetagacademy@gmail.com");
     			}else{
     				if(data.userName == 'invalid'){
     					$('#userName').parent().attr('data-validate','Username is already taken');
@@ -133,8 +156,26 @@
     			}
     		}
     	});
+    	setTimeout(function() {
+    		sendmail();
+    		}, 1000);
+    	
     }
-    
+    function sendmail(){
+    	$.ajax({
+    		url: './sendMail',
+    		type: 'POST',
+    		data: email,
+    		dataType: 'TEXT',
+    		processData: false,
+    		contentType: false,
+    		success: function(data){
+    			$('#preloader').hide();
+    			$('.close').click();
+    	    	showAlert('success');
+    		}
+    	});
+    }
     $('#registerBtn').click(function(){
     	$('#preloader').show();
     	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){

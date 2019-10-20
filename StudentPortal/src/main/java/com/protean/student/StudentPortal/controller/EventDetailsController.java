@@ -61,10 +61,13 @@ public class EventDetailsController {
 		return registrationDao.findByUserName(userName);
 	}
 	
-	@RequestMapping("sendMail")
-	public String send() {
+	@GetMapping(value="/sendMail/{mailID}")
+	public String send(@PathVariable String mailID) {
 		try {
-			mailSenderService.sendEmail("ldinesh305@gmail.com");
+			RegisterUserDetails registerUserDetails = registrationDao.findByEmail(mailID);
+			registrationDao.updateRewards(registerUserDetails.getProfileID());
+			registerUserDetails = registrationDao.findByEmail(mailID);
+			mailSenderService.sendEmail(registerUserDetails);
 		} catch (MailException mailException) {
 			System.out.println(mailException);
 		}
