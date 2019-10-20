@@ -13,6 +13,11 @@ public class MailSenderService {
 	@Autowired
 	private JavaMailSender jms; 
 	
+	@Autowired
+	public MailSenderService(JavaMailSender javaMailSender) {
+		this.jms = javaMailSender;
+	}
+	
 	public void sendEmail(String email) {
 		//int rand_int1 = new Random().nextInt(10000);
 		SimpleMailMessage msg = new SimpleMailMessage();

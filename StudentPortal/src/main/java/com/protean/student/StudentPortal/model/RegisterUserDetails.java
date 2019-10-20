@@ -8,11 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="user_details")
 public class RegisterUserDetails {
-	
 	private Long userId;
 	private String firstName;
 	private String lastName;
@@ -26,11 +27,12 @@ public class RegisterUserDetails {
 	private String isPremium;
 	private String city;
 	private String state;
-	private String enrolledEventID;
+	private String profileID;
+	private String referalCode;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="userid")
+	@Column(name="userid",unique = true)
 	public Long getUserId() {
 		return userId;
 	}
@@ -51,7 +53,7 @@ public class RegisterUserDetails {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	@Column(name="username")
+	@Column(name="username",unique = true)
 	public String getUserName() {
 		return userName;
 	}
@@ -65,13 +67,14 @@ public class RegisterUserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Column(name="email")
+	@Column(name="email",unique = true)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Temporal(TemporalType.DATE)
 	@Column(name="dob")
 	public Date getUserDob() {
 		return userDob;
@@ -86,7 +89,7 @@ public class RegisterUserDetails {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	@Column(name="mobile")
+	@Column(name="mobile",unique = true)
 	public String getMobileNum() {
 		return mobileNum;
 	}
@@ -121,11 +124,18 @@ public class RegisterUserDetails {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getEnrolledEventID() {
-		return enrolledEventID;
+	@Column(name="profileID",unique = true)
+	public String getProfileID() {
+		return profileID;
 	}
-	public void setEnrolledEventID(String enrolledEventID) {
-		this.enrolledEventID = enrolledEventID;
+	public void setProfileID(String profileID) {
+		this.profileID = profileID;
 	}
-	
+	@Column(name="referalCode")
+	public String getReferalCode() {
+		return referalCode;
+	}
+	public void setReferalCode(String referalCode) {
+		this.referalCode = referalCode;
+	}
 }
