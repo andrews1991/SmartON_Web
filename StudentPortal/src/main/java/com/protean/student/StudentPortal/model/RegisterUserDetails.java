@@ -28,9 +28,11 @@ public class RegisterUserDetails {
 	private String city;
 	private String state;
 	private String profileID;
-	private String referalCode;
-	private Long rewardPoints;
+	private String refcode;
+	private Long rewpoints;
 	
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="userid",unique = true)
@@ -131,19 +133,18 @@ public class RegisterUserDetails {
 	}
 	public void setProfileID(String profileID) {
 		this.profileID = profileID;
+		
+	}@Column(name="refcode")
+	public String getRefcode() {
+		return refcode;
 	}
-	@Column(name="referalCode")
-	public String getReferalCode() {
-		return referalCode;
+	public void setRefcode(String refcode) {
+		this.refcode = refcode;
+	}@Column(name="rewpoints")
+	public Long getRewpoints() {
+		return rewpoints;
 	}
-	public void setReferalCode(String referalCode) {
-		this.referalCode = referalCode;
-	}
-	@Column(name="rewardPoints",columnDefinition = "default 0") 
-	public Long getRewardPoints() {
-		return rewardPoints;
-	}
-	public void setRewardPoints(Long rewardPoints) {
-		this.rewardPoints = rewardPoints;
+	public void setRewpoints(Long rewpoints) {
+		this.rewpoints = rewpoints;
 	}
 }

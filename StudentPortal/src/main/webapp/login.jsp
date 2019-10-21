@@ -240,7 +240,7 @@
 											<span>Referal Code</span>
 										</div>
 										<div class="col-md-10">
-											<input type='text' maxlength='11' id='referal-code' class="form-control">
+											<input type='text' maxlength='11' name='refcode' id='refcode' class="form-control">
 										</div>
 								</div>
 								<div class="row">
