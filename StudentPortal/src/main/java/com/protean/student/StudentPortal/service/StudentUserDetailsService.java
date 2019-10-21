@@ -70,7 +70,7 @@ public class StudentUserDetailsService implements UserDetailsService {
 	    System.out.println(dob);
 	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	    String dobdate = formatter.format(dob);
-	    profileID= registerDetails.getCity().substring(0,3)+dobdate.substring(8,10)+ dobdate.substring(5,7)+dobdate.substring(2,4)+ name;
+	    profileID= registerDetails.getCity().substring(0,3).toUpperCase()+dobdate.substring(8,10)+ dobdate.substring(5,7)+dobdate.substring(2,4)+ name;
 
 		return profileID;
 		

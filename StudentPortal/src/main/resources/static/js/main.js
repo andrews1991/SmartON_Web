@@ -10,13 +10,13 @@
         autoclose: true,
       };
       date_input.datepicker(options);
-	  $("#referal-code").focusout(function(){
-			var referalCode = $("#referal-code").val();
-			if( referalCode != null && referalCode != "" ){
+	  $("#refcode").focusout(function(){
+			var refcode = $("#refcode").val();
+			if( refcode != null && refcode != "" ){
 				var referalFlag = true;
-				var cityCode = referalCode.substring(0,3).match(/^[a-zA-Z]*$/)[0];
-				var initial = referalCode.substring(9,11).match(/^[a-zA-Z]*$/)[0];
-				var dob =  referalCode.substring(3,9).match(/^[0-9]*$/)[0];
+				var cityCode = refcode.substring(0,3).match(/^[a-zA-Z]*$/)[0];
+				var initial = refcode.substring(9,11).match(/^[a-zA-Z]*$/)[0];
+				var dob =  refcode.substring(3,9).match(/^[0-9]*$/)[0];
 				if( cityCode == null || cityCode.length != 3 ){
 					referalFlag = false;
 				}
@@ -119,6 +119,7 @@
     }
     
     function validateRegForm(tagme){
+    	alert("referal code  "+$("#refcode").val());
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
@@ -129,6 +130,7 @@
     		success: function(data){
     			if(data.userName == 'valid' && data.email == 'valid'){
     				var formData = new FormData($('#registerForm')[0]);
+    				alert(JSON.stringify(formData));
     				$.ajax({
     		    		url: './registerUser',
     		    		type: 'POST',
@@ -140,6 +142,9 @@
     		    			$('#preloader').hide();
     		    			$('.close').click();
     		    	    	showAlert('success');
+    		    	    	setTimeout(function() {
+    		    	    		sendmail();
+    		    	    		}, 1000);
     		    		}
     		    	});
     				
@@ -156,9 +161,7 @@
     			}
     		}
     	});
-    	setTimeout(function() {
-    		sendmail();
-    		}, 1000);
+    	
     	
     }
     function sendmail(){
@@ -185,6 +188,7 @@
     	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
     		validateRegForm("registerBtn");
+    		alert("welcome");
     	}
     	$('#preloader').hide();
     });

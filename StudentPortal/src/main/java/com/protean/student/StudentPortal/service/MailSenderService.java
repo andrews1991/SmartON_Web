@@ -29,7 +29,7 @@ public class MailSenderService {
         		"Freedom to design our own life is the greatest gift we can ever get and TAG academy is the right platform to help you get closer to it.\r\n" + 
         		"We are glad you choose TAG !!\r\n" + 
         		"Welcome to the Academy !!";
-        body+="\n \n Use this Referal code "+registerUserDetails.getProfileID()+" and You have Earn Rewards! "+registerUserDetails.getRewardPoints()*1000+" Happy Learning!";
+        body+="\n \n Use this Referal code "+registerUserDetails.getProfileID()+" and You have Earn Rewards! "+registerUserDetails.getRewpoints()*1000+" Happy Learning!";
         msg.setText(body);
         jms.send(msg);
 	}
