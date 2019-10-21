@@ -15,7 +15,7 @@ public interface RegistrationDao extends JpaRepository<RegisterUserDetails, Inte
 	
 	@Transactional
     @Modifying
-    @Query(value = "UPDATE user_details set reward_points=(select count(1) from user_details where referal_code=:profileID ) where profileID=:profileID",nativeQuery = true)
+    @Query(value = "UPDATE user_details set reward_points=(select count(1) from user_details where refcode=:profileID ) where profileID=:profileID",nativeQuery = true)
    
 	void updateRewards(@Param("profileID") String profileID);
 
