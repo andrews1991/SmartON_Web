@@ -1,5 +1,8 @@
 package com.protean.student.StudentPortal.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
-import com.protean.student.StudentPortal.model.StudentUserDetails;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.repository.StudentDao;
 
@@ -23,14 +25,14 @@ public class StudentUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		StudentUserDetails userDetails = studentDao.findByUsername(username);
+		RegisterUserDetails userDetails = studentDao.findByUserName(username);
 		if(userDetails == null)
 			throw new UsernameNotFoundException("User name invalid");
 		return new UserDetailsImpl(userDetails);
 	}
 	
-	public void registerUser(RegisterUserDetails registerDetails,StudentUserDetails userDetails) {
-		studentDao.save(userDetails);
+	public void registerUser(RegisterUserDetails registerDetails) {
+		registerDetails.setProfileID(GenarateProfileID(registerDetails));
 		registerDao.save(registerDetails);
 	}
 	
@@ -55,5 +57,22 @@ public class StudentUserDetailsService implements UserDetailsService {
 		RegisterUserDetails regDetails = registerDao.findByUserName(userName);
 		return regDetails;
 	}
+	
+	public RegisterUserDetails forgotPassword(String email) {
+		RegisterUserDetails registerDetails = registerDao.findByEmail(email);
+		return registerDetails;
+	}
 
+	public String GenarateProfileID(RegisterUserDetails registerDetails) {
+		String profileID="";
+		Date dob = registerDetails.getUserDob();
+		String name = registerDetails.getFirstName().substring(0,1).toUpperCase()+registerDetails.getLastName().substring(0,1).toUpperCase();
+	    System.out.println(dob);
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    String dobdate = formatter.format(dob);
+	    profileID= registerDetails.getCity().substring(0,3).toUpperCase()+dobdate.substring(8,10)+ dobdate.substring(5,7)+dobdate.substring(2,4)+ name;
+
+		return profileID;
+		
+	}
 }

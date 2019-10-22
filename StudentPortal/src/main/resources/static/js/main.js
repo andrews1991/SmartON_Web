@@ -10,6 +10,27 @@
         autoclose: true,
       };
       date_input.datepicker(options);
+	  $("#refcode").focusout(function(){
+			var refcode = $("#refcode").val();
+			if( refcode != null && refcode != "" ){
+				var referalFlag = true;
+				var cityCode = refcode.substring(0,3).match(/^[a-zA-Z]*$/)[0];
+				var initial = refcode.substring(9,11).match(/^[a-zA-Z]*$/)[0];
+				var dob =  refcode.substring(3,9).match(/^[0-9]*$/)[0];
+				if( cityCode == null || cityCode.length != 3 ){
+					referalFlag = false;
+				}
+				if( initial == null || initial.length != 2 ){
+					referalFlag = false;
+				}
+				if( dob == null || dob.length != 6 ){
+					referalFlag = false;
+				}
+				if( !referalFlag ){
+					alert("Please enter a valid referal code");
+				}
+			}
+		});
     })
 	
 	function showAlert(type){
@@ -97,7 +118,8 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
-    function validateRegForm(){
+    function validateRegForm(tagme){
+    	alert("referal code  "+$("#refcode").val());
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
@@ -106,9 +128,9 @@
     		data: 'userName='+userName+'&email='+email,
     		dataType: 'JSON',
     		success: function(data){
-    			console.log('ok'+JSON.stringify(data));
     			if(data.userName == 'valid' && data.email == 'valid'){
     				var formData = new FormData($('#registerForm')[0]);
+    				alert(JSON.stringify(formData));
     				$.ajax({
     		    		url: './registerUser',
     		    		type: 'POST',
@@ -117,10 +139,16 @@
     		    		processData: false,
     		    		contentType: false,
     		    		success: function(data){
+    		    			$('#preloader').hide();
     		    			$('.close').click();
     		    	    	showAlert('success');
+    		    	    	setTimeout(function() {
+    		    	    		sendmail();
+    		    	    		}, 1000);
     		    		}
     		    	});
+    				
+    				// $http.get("http://localhost:8080/sendMail/regthetagacademy@gmail.com");
     			}else{
     				if(data.userName == 'invalid'){
     					$('#userName').parent().attr('data-validate','Username is already taken');
@@ -133,17 +161,36 @@
     			}
     		}
     	});
+    	
+    	
     }
-    
+    function sendmail(){
+    	$.ajax({
+    		url: './sendMail',
+    		type: 'POST',
+    		data: email,
+    		dataType: 'TEXT',
+    		processData: false,
+    		contentType: false,
+    		success: function(data){
+    			$('#preloader').hide();
+    			$('.close').click();
+    	    	showAlert('success');
+    		}
+    	});
+    }
     $('#registerBtn').click(function(){
+    	$('#preloader').show();
     	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
     		hideValidate($(this));
     	});
     	$('#userName').parent().attr('data-validate','Username is required');
     	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
-    		validateRegForm();
+    		validateRegForm("registerBtn");
+    		alert("welcome");
     	}
+    	$('#preloader').hide();
     });
     
     $('.clearForm').click(function(){
@@ -151,6 +198,25 @@
     	$('#registerForm').find('input[type=text],input[type=password],select').each(function(){
     		hideValidate($(this));
     	});
+    });
+    
+    $('#recover-submit').click(function(){
+    	if(validate($('#forgotEmail')) == false){
+            showValidate(input[i]);
+            return false;
+        }else{
+        	var email = $('#forgotEmail').val();
+        	$.ajax({
+        		url: './forgotPassword',
+	    		type: 'POST',
+	    		data: 'forgotEmail='+email,
+	    		dataType: 'JSON',
+	    		success: function(data){
+	    			alert('ok')
+	    		}
+        	});
+        }
+    	
     });
     
 })(jQuery);

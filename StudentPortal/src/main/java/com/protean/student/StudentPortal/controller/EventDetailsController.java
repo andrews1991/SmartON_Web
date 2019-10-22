@@ -5,20 +5,21 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.protean.student.StudentPortal.model.EventDetails;
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.EventDetailsService;
+import com.protean.student.StudentPortal.service.MailSenderService;
 
 
 @RestController
@@ -31,9 +32,12 @@ public class EventDetailsController {
 	@Autowired
 	RegistrationDao registrationDao;
 	
-	 @PostMapping(value="/add",headers="Accept=application/json")
+	@Autowired
+	MailSenderService mailSenderService;
+	
+	 @PostMapping(value="/addEvent",headers="Accept=application/json")
 	//@PostMapping(value="/add")
-	public EventDetails addEvent(@Valid @RequestBody EventDetails eventdetails) {
+	public EventDetails addEvent(@Valid @ModelAttribute("eventdetails") @RequestBody EventDetails eventdetails) {
 		return eventDetailsService.addEvent(eventdetails);
 	}
 	
@@ -56,4 +60,18 @@ public class EventDetailsController {
 	public RegisterUserDetails getStudentById(@PathVariable String userName) {
 		return registrationDao.findByUserName(userName);
 	}
+	
+	@GetMapping(value="/sendMail/{mailID}")
+	public String send(@PathVariable String mailID) {
+		try {
+			RegisterUserDetails registerUserDetails = registrationDao.findByEmail(mailID);
+			registrationDao.updateRewards(registerUserDetails.getProfileID());
+			registerUserDetails = registrationDao.findByEmail(mailID);
+			mailSenderService.sendEmail(registerUserDetails);
+		} catch (MailException mailException) {
+			System.out.println(mailException);
+		}
+		return "Congratulations! Your mail has been send to the user.";
+	}
+	
 }

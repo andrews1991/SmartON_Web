@@ -12,20 +12,22 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
-import com.protean.student.StudentPortal.model.StudentUserDetails;
+import com.protean.student.StudentPortal.service.MailSenderService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 
 @Controller
 public class StudentPortalController {
 	
-	@Autowired
-	StudentUserDetails userDetails;
 
 	@Autowired
 	StudentUserDetailsService studentService;
+	
+	@Autowired
+	MailSenderService mailSender;
 	
 	
 	@RequestMapping("/")
@@ -57,10 +59,7 @@ public class StudentPortalController {
 	public String registerUser(RegisterUserDetails registerDetails){
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
-		userDetails.setUsername(registerDetails.getUserName());
-		userDetails.setPassword(password);
-		userDetails.setUser_role("USER");
-		studentService.registerUser(registerDetails, userDetails);
+		studentService.registerUser( registerDetails);
 		return "success";
 	}
 	
@@ -69,6 +68,21 @@ public class StudentPortalController {
 	public String checkValidData(String userName,String email) {
 		JSONObject jsObj = studentService.registerValidityChecker(userName, email);
 		return jsObj.toString();
+	}
+	
+	@RequestMapping("/forgotPassword")
+	@ResponseBody
+	public String forgotPassword(@RequestParam(name="forgotEmail") String email) {
+		System.out.println(email);
+		RegisterUserDetails regObj = studentService.forgotPassword(email);
+		String isValid = "valid";
+		if(regObj != null) {
+			//send mail
+			//mailSender.sendEmail(email);
+		}else {
+			isValid = "invalid";
+		}
+		return isValid;
 	}
 	
 	@RequestMapping("/login-error")
