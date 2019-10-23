@@ -34,6 +34,7 @@ public class StudentUserDetailsService implements UserDetailsService {
 	public void registerUser(RegisterUserDetails registerDetails) {
 		registerDetails.setProfileID(GenarateProfileID(registerDetails));
 		registerDao.save(registerDetails);
+		registerDao.updateRewards(registerDetails.getRefcode());
 	}
 	
 	public JSONObject registerValidityChecker(String userName,String email) {

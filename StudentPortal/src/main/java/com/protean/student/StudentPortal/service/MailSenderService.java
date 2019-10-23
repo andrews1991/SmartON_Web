@@ -1,5 +1,7 @@
 package com.protean.student.StudentPortal.service;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,8 +20,7 @@ public class MailSenderService {
 		this.jms = javaMailSender;
 	}
 	
-	public void sendEmail(RegisterUserDetails registerUserDetails) {
-		//int rand_int1 = new Random().nextInt(10000);
+	public void sendEmail(RegisterUserDetails registerUserDetails) throws MessagingException {
 		SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(registerUserDetails.getEmail());
 
@@ -31,6 +32,6 @@ public class MailSenderService {
         		"Welcome to the Academy !!";
         body+="\n \n Use this Referal code "+registerUserDetails.getProfileID()+" and You have Earn Rewards! "+registerUserDetails.getRewpoints()*1000+" Happy Learning!";
         msg.setText(body);
-        jms.send(msg);
+        jms.send(msg); 
 	}
 }
