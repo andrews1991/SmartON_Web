@@ -2,6 +2,7 @@ package com.protean.student.StudentPortal.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.protean.student.StudentPortal.model.EventDetails;
@@ -62,11 +62,9 @@ public class EventDetailsController {
 	}
 	
 	@GetMapping(value="/sendMail/{mailID}")
-	public String send(@PathVariable String mailID) {
+	public String send(@PathVariable String mailID) throws MessagingException {
 		try {
 			RegisterUserDetails registerUserDetails = registrationDao.findByEmail(mailID);
-			registrationDao.updateRewards(registerUserDetails.getProfileID());
-			registerUserDetails = registrationDao.findByEmail(mailID);
 			mailSenderService.sendEmail(registerUserDetails);
 		} catch (MailException mailException) {
 			System.out.println(mailException);

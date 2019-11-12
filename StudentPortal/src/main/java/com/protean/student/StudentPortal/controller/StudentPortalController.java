@@ -1,5 +1,6 @@
 package com.protean.student.StudentPortal.controller;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
+import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.MailSenderService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 
@@ -29,6 +31,8 @@ public class StudentPortalController {
 	@Autowired
 	MailSenderService mailSender;
 	
+	@Autowired
+	RegistrationDao registrationDao;
 	
 	@RequestMapping("/")
 	public String home(Authentication authentication,Model model){
@@ -60,6 +64,15 @@ public class StudentPortalController {
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
 		studentService.registerUser( registerDetails);
+		registerDetails = registrationDao.findByEmail(registerDetails.getEmail());
+		registrationDao.updateRewards(registerDetails.getProfileID());		
+		
+		try {
+			mailSender.sendEmail(registerDetails);
+		} catch (MessagingException e) {
+			System.out.println("sending mail to user is failed " + e.getMessage());
+			
+		}
 		return "success";
 	}
 	

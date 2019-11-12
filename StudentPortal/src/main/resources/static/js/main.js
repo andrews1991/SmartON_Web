@@ -119,7 +119,6 @@
     }
     
     function validateRegForm(tagme){
-    	alert("referal code  "+$("#refcode").val());
     	var userName = $('#userName').val();
     	var email = $('#email').val();
     	$.ajax({
@@ -130,7 +129,6 @@
     		success: function(data){
     			if(data.userName == 'valid' && data.email == 'valid'){
     				var formData = new FormData($('#registerForm')[0]);
-    				alert(JSON.stringify(formData));
     				$.ajax({
     		    		url: './registerUser',
     		    		type: 'POST',
@@ -143,7 +141,7 @@
     		    			$('.close').click();
     		    	    	showAlert('success');
     		    	    	setTimeout(function() {
-    		    	    		sendmail();
+    		    	    		//sendmail();
     		    	    		}, 1000);
     		    		}
     		    	});
@@ -188,7 +186,6 @@
     	$('#email').parent().attr('data-validate','Valid E-mail is required');
     	if(checkValidation()){
     		validateRegForm("registerBtn");
-    		alert("welcome");
     	}
     	$('#preloader').hide();
     });
@@ -212,7 +209,6 @@
 	    		data: 'forgotEmail='+email,
 	    		dataType: 'JSON',
 	    		success: function(data){
-	    			alert('ok')
 	    		}
         	});
         }
