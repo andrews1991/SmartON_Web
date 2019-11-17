@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
+import com.protean.student.StudentPortal.model.TransactionDetails;
+import com.protean.student.StudentPortal.repository.PaymentDao;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.MailSenderService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
@@ -34,12 +36,26 @@ public class StudentPortalController {
 	@Autowired
 	RegistrationDao registrationDao;
 	
+	@Autowired
+	PaymentDao paymentDao;
+	
 	@RequestMapping("/")
 	public String home(Authentication authentication,Model model){
 		String userName = authentication.getName();
 		RegisterUserDetails regDetails = studentService.getLogonDetails(userName);
 		model.addAttribute("studentDetails", regDetails);
 		model.addAttribute("userName", userName);
+		String mailId = regDetails.getEmail();
+		TransactionDetails transDetails = paymentDao.findByUserMail(mailId);
+		if(transDetails != null) {
+			if(!transDetails.getStatus().equals("success") && transDetails.getProductinfo().equals("PremiumUser") && regDetails.getIsPremium().equals("premium")) {
+				regDetails.setIsPremium("guest");
+				registrationDao.save(regDetails);
+			}
+		}else if(regDetails.getIsPremium().equals("premium")) {
+			regDetails.setIsPremium("guest");
+			registrationDao.save(regDetails);
+		}
 		return "dashboard.jsp";
 	}
 	
