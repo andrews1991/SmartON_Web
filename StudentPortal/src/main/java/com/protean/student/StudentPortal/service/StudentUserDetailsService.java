@@ -34,7 +34,10 @@ public class StudentUserDetailsService implements UserDetailsService {
 	public void registerUser(RegisterUserDetails registerDetails) {
 		registerDetails.setProfileID(GenarateProfileID(registerDetails));
 		registerDao.save(registerDetails);
-		registerDao.updateRewards(registerDetails.getRefcode());
+	}
+	
+	public void updateRewards(Long rewardPoints, String userName) {
+		registerDao.updateRewards(rewardPoints,userName);
 	}
 	
 	public JSONObject registerValidityChecker(String userName,String email) {
@@ -75,5 +78,18 @@ public class StudentUserDetailsService implements UserDetailsService {
 
 		return profileID;
 		
+	}
+	
+	public void updateUserDetails(RegisterUserDetails registerDetails) {
+		registerDao.save(registerDetails);
+	}
+	
+	public RegisterUserDetails getUserDetailsByMail(String email) {
+		RegisterUserDetails registerDetails = registerDao.findByEmail(email);
+		return registerDetails;
+	}
+	
+	public RegisterUserDetails getUserDetailsByProfileId(String profileId) {
+		return registerDao.findByProfileID(profileId);
 	}
 }

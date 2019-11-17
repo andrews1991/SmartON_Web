@@ -23,6 +23,8 @@ import com.protean.student.StudentPortal.model.RegisterUserDetails;
 import com.protean.student.StudentPortal.model.TransactionDetails;
 import com.protean.student.StudentPortal.repository.PaymentDao;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
+import com.protean.student.StudentPortal.service.PaymentService;
+import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 import com.protean.student.StudentPortal.util.JavaIntegrationKit;
 
 @Controller
@@ -35,10 +37,10 @@ public class PaymentController {
 	HttpSession session;
 	
 	@Autowired
-	PaymentDao paymentDao;
+	StudentUserDetailsService studentService;
 	
 	@Autowired
-	RegistrationDao registerDao;
+	PaymentService paymentService;
 	
 	@RequestMapping("/securePay")
 	@ResponseBody
@@ -186,7 +188,7 @@ public class PaymentController {
 		    transactionDetails.setStatus(obj.getString("status"));
 		    transactionDetails.setCreatedOn(new Date());
 		    transactionDetails.setUserMail(obj.getString("email"));
-		    paymentDao.save(transactionDetails);
+		    paymentService.savePaymentData(transactionDetails);
 		    
 		}catch(IOException io) {
 			io.printStackTrace();
@@ -228,10 +230,10 @@ public class PaymentController {
 		    JSONObject obj = new JSONObject();
 		    obj = jsObj.getJSONArray("result").getJSONObject(0).getJSONObject("postBackParam");
 		    System.out.println("JSON..."+obj);
-		    RegisterUserDetails regDetails = registerDao.findByEmail(obj.getString("email"));
+		    RegisterUserDetails regDetails = studentService.getUserDetailsByMail(obj.getString("email"));
 		    if(regDetails != null) {
 		    	regDetails.setIsPremium("guest");
-		    	registerDao.save(regDetails);
+		    	studentService.updateUserDetails(regDetails);
 		    }
 		    
 		}catch(IOException io) {

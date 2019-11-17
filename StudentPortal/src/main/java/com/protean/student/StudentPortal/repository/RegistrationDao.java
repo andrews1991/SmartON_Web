@@ -15,14 +15,15 @@ public interface RegistrationDao extends JpaRepository<RegisterUserDetails, Inte
 	
 	@Transactional
     @Modifying
-    @Query(value = "UPDATE user_details SET rewpoints = ( SELECT count(*) FROM user_details WHERE refcode=:profileID) WHERE ProfileID = :profileID",nativeQuery = true)
-   
-	void updateRewards(@Param("profileID") String profileID);
+    @Query(value = "UPDATE user_details SET rewpoints = :rewardPoints WHERE username = :userName",nativeQuery = true)
+	void updateRewards(@Param("rewardPoints") Long rewardPoints, @Param("userName") String userName);
 
 	
 	public RegisterUserDetails findByUserName(String userName);
 	
 	public RegisterUserDetails findByEmail(String email);
+	
+	public RegisterUserDetails findByProfileID(String profileID);
 	
 	
 
