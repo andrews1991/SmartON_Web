@@ -21,6 +21,7 @@ import com.protean.student.StudentPortal.model.TransactionDetails;
 import com.protean.student.StudentPortal.repository.PaymentDao;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.MailSenderService;
+import com.protean.student.StudentPortal.service.PaymentService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 
 @Controller
@@ -37,7 +38,7 @@ public class StudentPortalController {
 	RegistrationDao registrationDao;
 	
 	@Autowired
-	PaymentDao paymentDao;
+	PaymentService paymentService;
 	
 	@RequestMapping("/")
 	public String home(Authentication authentication,Model model){
@@ -46,15 +47,15 @@ public class StudentPortalController {
 		model.addAttribute("studentDetails", regDetails);
 		model.addAttribute("userName", userName);
 		String mailId = regDetails.getEmail();
-		TransactionDetails transDetails = paymentDao.findByUserMail(mailId);
+		TransactionDetails transDetails = paymentService.getByMailId(mailId);
 		if(transDetails != null) {
 			if(!transDetails.getStatus().equals("success") && transDetails.getProductinfo().equals("PremiumUser") && regDetails.getIsPremium().equals("premium")) {
 				regDetails.setIsPremium("guest");
-				registrationDao.save(regDetails);
+				studentService.updateUserDetails(regDetails);
 			}
 		}else if(regDetails.getIsPremium().equals("premium")) {
 			regDetails.setIsPremium("guest");
-			registrationDao.save(regDetails);
+			studentService.updateUserDetails(regDetails);
 		}
 		return "dashboard.jsp";
 	}
@@ -80,8 +81,16 @@ public class StudentPortalController {
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
 		studentService.registerUser( registerDetails);
-		registerDetails = registrationDao.findByEmail(registerDetails.getEmail());
-		registrationDao.updateRewards(registerDetails.getProfileID());		
+		registerDetails = studentService.getUserDetailsByProfileId(registerDetails.getRefcode());
+		if(registerDetails != null) {
+			Long rewardPoints = registerDetails.getRewpoints();
+			if(rewardPoints == null) {
+				rewardPoints = 0l;
+			}
+			rewardPoints = rewardPoints + 1000;
+			studentService.updateRewards(rewardPoints,registerDetails.getUserName());
+		}
+		//studentService.updateRewards(registerDetails.getProfileID());
 		
 		try {
 			mailSender.sendEmail(registerDetails);
