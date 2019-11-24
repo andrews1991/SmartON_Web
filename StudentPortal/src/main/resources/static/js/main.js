@@ -138,15 +138,15 @@
     		    		contentType: false,
     		    		success: function(data){
     		    			$('#preloader').hide();
-    		    			$('.close').click();
-    		    	    	showAlert('success');
-    		    	    	setTimeout(function() {
-    		    	    		//sendmail();
-    		    	    		}, 1000);
+    		    			if($('input[name=isPremium]:checked').val() == 'premium'){
+    		    				paymentIntegration();
+    		    			}else{
+    		    				$('.close').click();
+        		    	    	showAlert('success');
+    		    			}
     		    		}
     		    	});
     				
-    				// $http.get("http://localhost:8080/sendMail/regthetagacademy@gmail.com");
     			}else{
     				if(data.userName == 'invalid'){
     					$('#userName').parent().attr('data-validate','Username is already taken');
@@ -187,7 +187,7 @@
     	if(checkValidation()){
     		validateRegForm("registerBtn");
     	}
-    	$('#preloader').hide();
+    	//$('#preloader').hide();
     });
     
     $('.clearForm').click(function(){
@@ -220,5 +220,19 @@
 function clearFormData(selector){
 	$('#'+selector).find('input[type=text],input[type=password],select').each(function(){
 	    $(this).val('');
+	});
+}
+
+function paymentIntegration(){
+	var data = 'key=rMKXzU&hash_string=&hash=&txnid=&amount=10000&firstname='+$('#firstName').val()+'&email='+$('#email').val()+'&phone='+$('#mobileNum').val()+'&productinfo=PremiumUser'+'&surl=http://localhost:8080/paymentSuccess&furl=http://localhost:8080/login&service_provider=payu_paisa';
+	//alert(data)
+	$.ajax({
+		url: './securePay',
+		type: 'POST',
+		data: data,
+		dataType: 'TEXT',
+		success: function(data){
+			$('#payFormDiv').html(data);
+		}
 	});
 }
