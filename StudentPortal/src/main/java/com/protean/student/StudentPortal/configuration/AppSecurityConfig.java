@@ -68,7 +68,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 	    web
 	            .ignoring()
-	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/demo/**","/img/**","/scss/**","/checkValidData","/registerUser","/forgotPassword","/securePay","/paymentSuccess");
+	            .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**","/images/**","/fonts/**","/vendor/**","/demo/**","/img/**","/scss/**","/checkValidData","/registerUser","/forgotPassword","/securePay","/paymentSuccess","/addEvent","/StudentPortal/Event/**");
 	}
 	
 }
