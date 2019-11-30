@@ -1,5 +1,6 @@
 package com.protean.student.StudentPortal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.query.Param;
@@ -32,6 +33,8 @@ public interface EventDetailsService {
 	
 	  public List<EventDetails> getOngoingEventsByCatogery(String catogery, String
 	  type);
+
+	
 	 
 
 

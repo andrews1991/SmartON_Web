@@ -16,19 +16,19 @@ public class EventRegister {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "eventRegister_id",unique = true)
+	@Column(name = "eventregisterid",unique = true)
 	private Long eventRegisterId;
 	
-	@Column(name="event_id")
+	@Column(name="fk_eventid")
 	private Long eventid;
 	
-	@Column(name="user_id")
+	@Column(name="fk_userid")
 	private Long userid;
 	
-	@Column(name="isPresent")
+	@Column(name="ispresent")
 	private Boolean ispresent;
 	
-	@Column(name="isCancelled")
+	@Column(name="iscancelled")
 	private Boolean iscancelled;
 	
 	@Column(name="updatedon")

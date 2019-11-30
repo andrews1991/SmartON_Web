@@ -11,6 +11,8 @@ import com.protean.student.StudentPortal.model.EventRegister;
 public interface EventRegisterService {
 	public List<EventRegister> getEventRegisterDetailsByEventId(Long id);
 
-	String UpdateEventRegisterAttendence(List<EventRegister> evtregDetails); 
+	public List<EventRegister> UpdateEventRegisterAttendence(List<EventRegister> evtregDetails);
+
+	public EventRegister addEventRegistrationDetail(EventRegister eventregister); 
 
 }

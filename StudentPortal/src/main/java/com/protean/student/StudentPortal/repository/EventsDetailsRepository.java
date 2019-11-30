@@ -1,5 +1,6 @@
 package com.protean.student.StudentPortal.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -31,7 +32,10 @@ public interface EventsDetailsRepository extends JpaRepository<EventDetails, Lon
 	 * @Query(value =
 	 * "select * from event_Details where deletedflag= :flag",nativeQuery = true)
 	 */
-	List<EventDetails> findAllByDeletedflag( Long flag);
+	@Transactional
+    @Modifying
+    @Query(value = "Select * from event_Details e where e.deletedflag = :flag and e.event_date>= CURRENT_TIMESTAMP",nativeQuery = true)	
+	List<EventDetails> findAllByDeletedflag(@Param("flag") Long flag);
 	
 	@Transactional
     @Modifying
@@ -43,6 +47,8 @@ public interface EventsDetailsRepository extends JpaRepository<EventDetails, Lon
     @Modifying
     @Query(value = "Select * from event_Details e where e.event_catogery =:catogery and e.event_type = :type",nativeQuery = true)
 	List<EventDetails> findAllByEventCategoryandType(@Param("catogery") String catogery,@Param("type") String type);
+
+	//List<EventDetails> findAllByDeletedflag(Long flag);
 	
 	
 	

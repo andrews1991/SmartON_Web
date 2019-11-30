@@ -1,12 +1,14 @@
 package com.protean.student.StudentPortal.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -23,7 +25,8 @@ public class EventDetails {
 	private String eventDuration;
 	
 	@Column(name="updatedon")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "IST")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date updatedon;
 	
 	@Column(name="updatedby")
@@ -33,7 +36,8 @@ public class EventDetails {
 	private long createdby;
 	
 	@Column(name="createdon")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "IST")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date createdon;
 	
 	@Column(name="event_description")
@@ -62,7 +66,8 @@ public class EventDetails {
 	
 	
 	@Column(name = "event_date")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Europe/Zagreb")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "IST")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date eventDate;
 	
 	@Column(name = "ongoing_event")

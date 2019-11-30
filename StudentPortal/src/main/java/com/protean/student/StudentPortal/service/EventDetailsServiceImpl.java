@@ -1,5 +1,6 @@
 package com.protean.student.StudentPortal.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,6 @@ public class EventDetailsServiceImpl implements EventDetailsService {
 	  type){ return (List<EventDetails>)
 	  eventsDetailsRepository.findAllByEventCategoryandType(catogery,type); }
 	 
-	
 	
 	/*
 	 * @Override public List<EventDetails> findAllByDeletedflag(long flag) { // TODO

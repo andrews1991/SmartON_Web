@@ -15,16 +15,21 @@ public class EventRegisterServiceImpl implements EventRegisterService{
 	
 	@Autowired
 	private EventRegisterRepo eventRegister;
+	
+	public EventRegister addEventRegistrationDetail(EventRegister eventregister) {
+		return eventRegister.save(eventregister);
+	}
 
 	@Override
 	public List<EventRegister> getEventRegisterDetailsByEventId(Long id) {
-		return eventRegister.findAllByEventid(id);
+		System.out.println("========="+id);
+		return eventRegister.getEventRegisterDetailsByEventId(id);
 		
 	}
 	@Override
-	public String UpdateEventRegisterAttendence(List<EventRegister> evtregDetail) {
-		 eventRegister.saveAll(evtregDetail);
-		 return "Saved successfully";
+	public List<EventRegister> UpdateEventRegisterAttendence(List<EventRegister> evtregDetail) {
+		return eventRegister.saveAll(evtregDetail);
+		// return "Saved successfully";
 		
 	}
 
