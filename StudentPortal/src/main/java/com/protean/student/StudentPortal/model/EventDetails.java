@@ -73,8 +73,8 @@ public class EventDetails {
 	@Column(name = "ongoing_event")
 	private String onGoingEvent;
 	
-	@Column(name="event_image")
-	private byte[] evenyImage;
+	@Column(name="event_image",columnDefinition = "blob")
+	private byte[] eventImage;
 	
 	@Column(name="deletedflag")
 	private Long deletedflag;
@@ -207,12 +207,12 @@ public class EventDetails {
 		this.onGoingEvent = onGoingEvent;
 	}
 
-	public byte[] getEvenyImage() {
-		return evenyImage;
+	public byte[] getEventImage() {
+		return eventImage;
 	}
 
-	public void setEvenyImage(byte[] evenyImage) {
-		this.evenyImage = evenyImage;
+	public void setEvenyImage(byte[] eventImage) {
+		this.eventImage = eventImage;
 	}
 
 	public Long getDeletedflag() {

@@ -57,7 +57,7 @@ public class StudentPortalController {
 			regDetails.setIsPremium("guest");
 			studentService.updateUserDetails(regDetails);
 		}
-		return "dashboard.jsp";
+		return "dashboard1.jsp";
 	}
 	
 	@RequestMapping("/login")

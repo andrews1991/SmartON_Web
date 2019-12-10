@@ -1,5 +1,12 @@
 package com.protean.student.StudentPortal.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,12 +14,15 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.MailException;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.protean.student.StudentPortal.model.EventDetails;
 import com.protean.student.StudentPortal.model.EventRegister;
@@ -31,12 +42,14 @@ import com.protean.student.StudentPortal.service.EventDetailsService;
 import com.protean.student.StudentPortal.service.EventRegisterService;
 import com.protean.student.StudentPortal.service.MailSenderService;
 
-
 @RestController
 @RequestMapping("StudentPortal/Event")
 public class EventDetailsController {
 
-	@Autowired(required=true)
+	 @Value("${spring.application.uploadDirectory}")
+	   private String uploadDirectory;
+
+	@Autowired(required = true)
 	EventDetailsService eventDetailsService;
 
 	@Autowired(required = true)
@@ -49,31 +62,46 @@ public class EventDetailsController {
 	MailSenderService mailSenderService;
 
 	/* Add multiple events */
-	@PostMapping(value="/addEvent")/* Insert and update list of records*/
+	@PostMapping(value = "/addEvent") /* Insert and update list of records */
 	public String addEvent(@RequestBody List<EventDetails> eventdetails) {
 
 		return eventDetailsService.addEvent(eventdetails);
 	}
 
 	/* Add single event at a time */
-	@PostMapping(value="/addEventDetail")
-	public EventDetails addEventDetail(@RequestBody EventDetails  eventdetails) throws ParseException {
-		String fdate=null;
-		System.out.println("***********************************"+eventdetails.getEventDate());
+	@PostMapping(value = "/addEventDetail")
+	public EventDetails addEventDetail(@RequestBody EventDetails eventdetails) throws ParseException {
+		String fdate = null;
+		System.out.println("***********************************" + eventdetails.getEventImage());
 
 		return eventDetailsService.addEventDetail(eventdetails);
 	}
 
+	@PostMapping(value = "/addEventDetailImage")
+	public EventDetails addEventDetailImage(@RequestParam("photo") MultipartFile photo, @Valid EventDetails eventdetails) throws ParseException, IOException {
+			
+		byte[] data = photo.getBytes();
+		Path path=Paths.get(uploadDirectory+photo.getOriginalFilename());
+		eventdetails.setEvenyImage(data);
+		System.out.println("data--------------------->"+data);
+		EventDetails evt=eventDetailsService.addEventDetail(eventdetails);
+		evt.getEventImage().toString();
+		System.out.println("Length of byte array::::"+evt.getEventImage());
+		return evt;
+
+		 
+	}
+
 	/* List event details based on event id */
-	@GetMapping(value="/getEventDetail/{id}")
+	@GetMapping(value = "/getEventDetail/{id}")
 	public EventDetails getEventById(@PathVariable Long id) {
 		return eventDetailsService.getEventById(id);
 	}
 
-	/* List out all ongoing events*/
-	@GetMapping(value="getOngoingEvents")
-	public List<EventDetails> getAllNonDeletedEvents(){
-	long flag=0;
+	/* List out all ongoing events */
+	@GetMapping(value = "getOngoingEvents")
+	public List<EventDetails> getAllNonDeletedEvents() {
+		long flag = 0;
 		/*
 		 * LocalDateTime currentTime = LocalDateTime.now(); java.util.Date date = new
 		 * java.util.Date();
@@ -86,44 +114,41 @@ public class EventDetailsController {
 		 */
 		return eventDetailsService.findAllByDeletedflag(flag);
 	}
-	
-	
-	/* Listout event based on catagory and type of events*/
-	@GetMapping(value="/getOngoingEventsByCatogery/{catogery}/{type}")
-	public List<EventDetails> getOngoingEventsByCatogery( @PathVariable String catogery,@PathVariable String type){
+
+	/* Listout event based on catagory and type of events */
+	@GetMapping(value = "/getOngoingEventsByCatogery/{catogery}/{type}")
+	public List<EventDetails> getOngoingEventsByCatogery(@PathVariable String catogery, @PathVariable String type) {
 		System.out.println("Succes..................");
-		//long flag=0;
-		return eventDetailsService.getOngoingEventsByCatogery(catogery,type);
+		// long flag=0;
+		return eventDetailsService.getOngoingEventsByCatogery(catogery, type);
 	}
-	
+
 	/* List out all the events without condition */
-	@GetMapping(value="/getallEventDetails") 
+	@GetMapping(value = "/getallEventDetails")
 	public List<EventDetails> getAllStudents() {
 		return eventDetailsService.getAllEvents();
 	}
 
-
-	/* Update event details based on event id*/
-	@PostMapping(value="/updateEventDetail/{id}")
+	/* Update event details based on event id */
+	@PostMapping(value = "/updateEventDetail/{id}")
 	public EventDetails updateStudent(@RequestBody EventDetails eventDetails) {
 		System.out.println("Success");
 		return eventDetailsService.updateEventDetails(eventDetails);
 	}
-	
 
-	/* Remove event or delete Event*/
-	@GetMapping(value="/deleteEventDetail/{id}")
+	/* Remove event or delete Event */
+	@GetMapping(value = "/deleteEventDetail/{id}")
 	public int deleteEventDetail(@PathVariable Long id) {
-		int message=0;
+		int message = 0;
 		return eventDetailsService.deleteEventDetail(id);
 	}
 
-	@GetMapping(value="/getUser/{userName}")
+	@GetMapping(value = "/getUser/{userName}")
 	public RegisterUserDetails getStudentById(@PathVariable String userName) {
 		return registrationDao.findByUserName(userName);
 	}
 
-	@GetMapping(value="/sendMail/{mailID}")
+	@GetMapping(value = "/sendMail/{mailID}")
 	public String send(@PathVariable String mailID) throws MessagingException {
 		try {
 			RegisterUserDetails registerUserDetails = registrationDao.findByEmail(mailID);
@@ -134,44 +159,28 @@ public class EventDetailsController {
 		return "Congratulations! Your mail has been send to the user.";
 	}
 
+	/***************************** EVENT REGISTRATION AND ATTENDENCE */
 
-	/*****************************EVENT REGISTRATION AND ATTENDENCE*/
-
-/* Event Registration Sevice*/
-	@PostMapping(value="/addEventRegistrationDetail")
-	public EventRegister addEventRegistrationDetail(@RequestBody EventRegister  eventregister) throws ParseException {
+	/* Event Registration Sevice */
+	@PostMapping(value = "/addEventRegistrationDetail")
+	public EventRegister addEventRegistrationDetail(@RequestBody EventRegister eventregister) throws ParseException {
 
 		return eventRegisterDetailsService.addEventRegistrationDetail(eventregister);
 	}
 
-
-	/* Get Event Registration Details based on eventid*/
-	@GetMapping(value="/getRegisteredEventDetailByEventid/{id}")
+	/* Get Event Registration Details based on eventid */
+	@GetMapping(value = "/getRegisteredEventDetailByEventid/{id}")
 	public List<EventRegister> getEventRegisterDetailsByEventType(@PathVariable Long id) {
-		System.out.println("***************"+id);
+		System.out.println("***************" + id);
 		return eventRegisterDetailsService.getEventRegisterDetailsByEventId(id);
 	}
 
-	
 	/* Student Attendence sevice */
-	@PostMapping(value="/UpdateEventRegisterAttendence")
-	public List<EventRegister>  UpdateEventRegisterAttendence(@RequestBody List<EventRegister> evtregDetails) {
+	@PostMapping(value = "/UpdateEventRegisterAttendence")
+	public List<EventRegister> UpdateEventRegisterAttendence(@RequestBody List<EventRegister> evtregDetails) {
 
 		System.out.println("Successfully Entered..............");
 		return eventRegisterDetailsService.UpdateEventRegisterAttendence(evtregDetails);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

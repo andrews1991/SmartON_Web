@@ -183,7 +183,7 @@ app.controller('myCtrl', function($scope, $http) {
                 <div class="chart-area">
  
                
-                <img ng-src="data:image/jpg;base64,{{i.evenyImage}}" alt="Smiley face" height="210px" width="370px" style="padding: 0px 0px 0px 10px"/>
+                <img ng-src="../images/Selenium.jpeg" alt="Smiley face" height="210px" width="370px" style="padding: 0px 0px 0px 10px"/>
                 </div>
                 
                 
