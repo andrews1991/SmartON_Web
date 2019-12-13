@@ -1,12 +1,14 @@
 package com.protean.student.StudentPortal.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -32,7 +34,8 @@ public class EventRegister {
 	private Boolean iscancelled;
 	
 	@Column(name="updatedon")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "IST")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date updatedon;
 	
 	@Column(name="updatedby")
@@ -42,7 +45,8 @@ public class EventRegister {
 	private long createdby;
 	
 	@Column(name="createdon")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "IST")
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date createdon;
 	
 	@Column(name="deletedflag")
@@ -88,14 +92,7 @@ public class EventRegister {
 		this.iscancelled = iscancelled;
 	}
 
-	public Date getUpdatedon() {
-		return updatedon;
-	}
-
-	public void setUpdatedon(Date updatedon) {
-		this.updatedon = updatedon;
-	}
-
+	
 	public long getUpdatedby() {
 		return updatedby;
 	}
@@ -112,13 +109,6 @@ public class EventRegister {
 		this.createdby = createdby;
 	}
 
-	public Date getCreatedon() {
-		return createdon;
-	}
-
-	public void setCreatedon(Date createdon) {
-		this.createdon = createdon;
-	}
 
 	public Long getDeletedflag() {
 		return deletedflag;
@@ -128,6 +118,22 @@ public class EventRegister {
 		this.deletedflag = deletedflag;
 	}
 
-	
+	public Date getUpdatedon() {
+		return updatedon;
+	}
+
+	public void setUpdatedon(Date updatedon) {
+		this.updatedon = updatedon;
+	}
+
+	public Date getCreatedon() {
+		return createdon;
+	}
+
+	public void setCreatedon(Date createdon) {
+		this.createdon = createdon;
+	}
+
+		
 
 }

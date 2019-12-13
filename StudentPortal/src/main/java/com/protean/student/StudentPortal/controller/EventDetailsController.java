@@ -1,33 +1,21 @@
 package com.protean.student.StudentPortal.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.repository.query.Param;
 import org.springframework.mail.MailException;
-import org.springframework.security.crypto.codec.Base64;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,24 +58,26 @@ public class EventDetailsController {
 
 	/* Add single event at a time */
 	@PostMapping(value = "/addEventDetail")
-	public EventDetails addEventDetail(@RequestBody EventDetails eventdetails) throws ParseException {
-		String fdate = null;
-		System.out.println("***********************************" + eventdetails.getEventImage());
-
+	public EventDetails addEventDetail(@RequestParam("date") String date,@RequestParam("image") MultipartFile image,@Valid EventDetails eventdetails) throws ParseException, IOException {
+		byte[] data = image.getBytes();
+		eventdetails.setEvenyImage(data);
+		Date date1=(Date) new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);  
+		System.out.println(date1);
+		eventdetails.setEventDate(date1);
 		return eventDetailsService.addEventDetail(eventdetails);
 	}
 
 	@PostMapping(value = "/addEventDetailImage")
-	public EventDetails addEventDetailImage(@RequestParam("photo") MultipartFile photo, @Valid EventDetails eventdetails) throws ParseException, IOException {
+	public EventDetails addEventDetailImage(@RequestParam("date") String date,@RequestParam("image") MultipartFile photo, @Valid EventDetails eventdetails) throws ParseException, IOException {
 			
 		byte[] data = photo.getBytes();
-		Path path=Paths.get(uploadDirectory+photo.getOriginalFilename());
 		eventdetails.setEvenyImage(data);
-		System.out.println("data--------------------->"+data);
-		EventDetails evt=eventDetailsService.addEventDetail(eventdetails);
-		evt.getEventImage().toString();
-		System.out.println("Length of byte array::::"+evt.getEventImage());
-		return evt;
+		Date date1=(Date) new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);  
+		System.out.println(date1);
+		eventdetails.setEventDate(date1);
+		return eventDetailsService.addEventDetail(eventdetails);
+		//return evt;
+		
 
 		 
 	}
@@ -102,16 +92,7 @@ public class EventDetailsController {
 	@GetMapping(value = "getOngoingEvents")
 	public List<EventDetails> getAllNonDeletedEvents() {
 		long flag = 0;
-		/*
-		 * LocalDateTime currentTime = LocalDateTime.now(); java.util.Date date = new
-		 * java.util.Date();
-		 * System.out.println("date:::::::::::::::::::::"+currentTime); String
-		 * strDateFormat = "yyyy-MM-dd HH:mm:ss"; DateFormat dateFormat = new
-		 * SimpleDateFormat(strDateFormat); String formattedDate=
-		 * dateFormat.format(date);
-		 * System.out.println("Current time of the day using Date - 12 hour format: " +
-		 * formattedDate);
-		 */
+		
 		return eventDetailsService.findAllByDeletedflag(flag);
 	}
 
@@ -131,8 +112,13 @@ public class EventDetailsController {
 
 	/* Update event details based on event id */
 	@PostMapping(value = "/updateEventDetail/{id}")
-	public EventDetails updateStudent(@RequestBody EventDetails eventDetails) {
-		System.out.println("Success");
+	public EventDetails updateStudent(@RequestParam("date") String date,@RequestParam("image") MultipartFile image, @Validated EventDetails eventDetails) throws IOException, ParseException {
+		
+		byte[] data = image.getBytes();
+		eventDetails.setEvenyImage(data);
+		Date date1=(Date) new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);  
+		System.out.println(date1);
+		eventDetails.setEventDate(date1);
 		return eventDetailsService.updateEventDetails(eventDetails);
 	}
 
@@ -184,3 +170,4 @@ public class EventDetailsController {
 	}
 
 }
+

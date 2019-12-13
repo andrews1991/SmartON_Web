@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class EventDetails {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "eventid",unique = true)
 	private Long eventid;
 	
@@ -76,8 +77,8 @@ public class EventDetails {
 	@Column(name="event_image",columnDefinition = "blob")
 	private byte[] eventImage;
 	
-	@Column(name="deletedflag")
-	private Long deletedflag;
+	@Column(name="deletedflag" )
+	private int deletedflag;
 
 	public Long getEventid() {
 		return eventid;
@@ -215,17 +216,26 @@ public class EventDetails {
 		this.eventImage = eventImage;
 	}
 
-	public Long getDeletedflag() {
+	public String getEventDescription() {
+		return eventDescription;
+	}
+
+	public void setEventDescription(String eventDescription) {
+		this.eventDescription = eventDescription;
+	}
+
+	public int getDeletedflag() {
 		return deletedflag;
 	}
 
-	public void setDeletedflag(Long deletedflag) {
+	public void setDeletedflag(int deletedflag) {
 		this.deletedflag = deletedflag;
 	}
-	
 
-	
-	
+	public void setEventImage(byte[] eventImage) {
+		this.eventImage = eventImage;
+	}
+
 	
 
 }

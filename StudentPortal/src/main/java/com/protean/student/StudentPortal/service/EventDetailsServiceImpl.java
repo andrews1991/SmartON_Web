@@ -25,7 +25,7 @@ public class EventDetailsServiceImpl implements EventDetailsService {
 	}
 
 	public EventDetails addEventDetail(EventDetails eventdetails) {
-		return eventsDetailsRepository.save(eventdetails);
+				return eventsDetailsRepository.save(eventdetails);
 	}
 	
 	@Override

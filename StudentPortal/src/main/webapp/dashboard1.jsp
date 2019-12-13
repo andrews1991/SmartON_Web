@@ -7,19 +7,36 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script>
+function callajax(){
+	alert("success");
+$.ajax({
+    url : 'http://localhost:8080/StudentPortal/Event/addEventDetailImage',
+    type : 'POST',
+    data : formsave,
+    enctype : 'multipart/form-data',
+    contentType : false,
+    cache : false,
+    processData : false,
+    success : function(response) {},
+    error: function(){}    
+ )};
+}
+ </script>
 <h2>How to insert image in database using Spring MVC</h2>
 
-<form action="http://localhost:8080/StudentPortal/Event/addEventDetailImage" method="post"  enctype="multipart/form-data">
+<form action="" method="post" name="formsave" enctype="multipart/form-data">
 
 <pre>
 		
 	Name: <input type="text" name="eventName">
+	
 				
-	Age: <input type="number" name="eventOrgName">
+	Age: <input type="text" name="date" id="date" placeholder="D.O.B"/>
 				
-	Photo: <input type="file" name="photo">
+	Photo: <input type="file" name="image">
 				
-	<input type="submit" value="Submit">
+	<input type="submit" value="Submit" onclick="callajax()">
 
 </pre>
 
