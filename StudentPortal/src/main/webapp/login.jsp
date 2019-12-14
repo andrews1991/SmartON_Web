@@ -134,7 +134,7 @@
 									</div>
 									<div class="col-md-4">
 									<div class="rel-input" data-validate = "First Name is required">
-										<input type="text" class="form-control validate-input1" placeholder="First Name" value="" name="firstName">
+										<input type="text" class="form-control validate-input1" placeholder="First Name" value="" id="firstName" name="firstName">
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -225,7 +225,7 @@
 									</div>
 									<div class="col-md-4">
 									<div class="rel-input" data-validate = "Mobile No. is required">
-										<input type="text" class="form-control validate-input1" placeholder="Mobile Number" value="" name="mobileNum">
+										<input type="text" class="form-control validate-input1" placeholder="Mobile Number" value="" id="mobileNum" name="mobileNum">
 										</div>
 									</div>
 									<div class="col-md-3" style="margin-top:0.5rem;">
@@ -310,6 +310,7 @@
 	</div>
 
 	<div id="dropDownSelect1"></div>
+	<div id="payFormDiv"></div>
 	
 	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.protean.student.StudentPortal.model.RegisterUserDetails;
+import com.protean.student.StudentPortal.model.TransactionDetails;
+import com.protean.student.StudentPortal.repository.PaymentDao;
 import com.protean.student.StudentPortal.repository.RegistrationDao;
 import com.protean.student.StudentPortal.service.MailSenderService;
+import com.protean.student.StudentPortal.service.PaymentService;
 import com.protean.student.StudentPortal.service.StudentUserDetailsService;
 
 @Controller
@@ -34,13 +37,27 @@ public class StudentPortalController {
 	@Autowired
 	RegistrationDao registrationDao;
 	
+	@Autowired
+	PaymentService paymentService;
+	
 	@RequestMapping("/")
 	public String home(Authentication authentication,Model model){
 		String userName = authentication.getName();
 		RegisterUserDetails regDetails = studentService.getLogonDetails(userName);
 		model.addAttribute("studentDetails", regDetails);
 		model.addAttribute("userName", userName);
-		return "dashboard.jsp";
+		String mailId = regDetails.getEmail();
+		TransactionDetails transDetails = paymentService.getByMailId(mailId);
+		if(transDetails != null) {
+			if(!transDetails.getStatus().equals("success") && transDetails.getProductinfo().equals("PremiumUser") && regDetails.getIsPremium().equals("premium")) {
+				regDetails.setIsPremium("guest");
+				studentService.updateUserDetails(regDetails);
+			}
+		}else if(regDetails.getIsPremium().equals("premium")) {
+			regDetails.setIsPremium("guest");
+			studentService.updateUserDetails(regDetails);
+		}
+		return "dashboard1.jsp";
 	}
 	
 	@RequestMapping("/login")
@@ -64,8 +81,16 @@ public class StudentPortalController {
 		String password = new BCryptPasswordEncoder().encode(registerDetails.getPassword());
 		registerDetails.setPassword(password);
 		studentService.registerUser( registerDetails);
-		registerDetails = registrationDao.findByEmail(registerDetails.getEmail());
-		registrationDao.updateRewards(registerDetails.getProfileID());		
+		registerDetails = studentService.getUserDetailsByProfileId(registerDetails.getRefcode());
+		if(registerDetails != null) {
+			Long rewardPoints = registerDetails.getRewpoints();
+			if(rewardPoints == null) {
+				rewardPoints = 0l;
+			}
+			rewardPoints = rewardPoints + 1000;
+			studentService.updateRewards(rewardPoints,registerDetails.getUserName());
+		}
+		//studentService.updateRewards(registerDetails.getProfileID());
 		
 		try {
 			mailSender.sendEmail(registerDetails);

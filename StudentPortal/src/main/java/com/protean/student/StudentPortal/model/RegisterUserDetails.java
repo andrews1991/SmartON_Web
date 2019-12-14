@@ -30,6 +30,7 @@ public class RegisterUserDetails {
 	private String profileID;
 	private String refcode;
 	private Long rewpoints;
+	private Long noofevtallowed;
 	
 
 
@@ -146,5 +147,12 @@ public class RegisterUserDetails {
 	}
 	public void setRewpoints(Long rewpoints) {
 		this.rewpoints = rewpoints;
+	}
+	@Column(name="noofevtallowed")
+	public Long getNoofevtallowed() {
+		return noofevtallowed;
+	}
+	public void setNoofevtallowed(Long noofevtallowed) {
+		this.noofevtallowed = noofevtallowed;
 	}
 }
